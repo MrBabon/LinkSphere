@@ -1,1 +1,11 @@
 // Specific CSS for your home-page
+
+.custom-height {
+    height: 80vh;
+}
+.custom-background {
+    background-image: linear-gradient(rgba(255,255,255,0.45),rgba(255,255,255,0.45)), url('https://res.cloudinary.com/dilp6xqmb/image/upload/v1706191668/home-TapCard_jzn1wp.jpg');
+    background-position: center; /* Ajustez selon le besoin */
+    background-size: cover; /* Changez cette valeur pour contrôler le zoom */
+    height: 76vh; /* Hauteur initiale */
+}
