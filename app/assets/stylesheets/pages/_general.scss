@@ -1,0 +1,79 @@
+.h-20 {
+    height: 5rem/* 80px */;
+}
+
+
+.pt-8 {
+    padding-top: 2rem/* 32px */;
+}
+
+.pt-12 {
+    padding-top: 3rem/* 48px */;
+}
+
+.pt-16 {
+    padding-top: 4rem/* 64px */;
+}
+
+.pt-20 {
+    padding-top: 5rem;
+}
+
+.pt-28 {
+    padding-top: 7rem/* 112px */;
+}
+
+.pb-3 {
+    padding-bottom: 0.75rem/* 12px */;
+}
+
+.px-4 {
+    padding-left: 1rem/* 16px */;
+    padding-right: 1rem/* 16px */;
+}
+
+.mt-8 {
+    margin-top: 2rem/* 32px */;
+}
+
+.w-5 {
+    width: 1.25rem/* 20px */;
+}
+
+.mt-20 {
+    margin-top: 5rem;
+}
+
+.my-20 {
+    margin-top: 5rem/* 80px */;
+    margin-bottom: 5rem/* 80px */;
+}
+
+.w-6 {
+    width: 1.5rem/* 24px */;
+}
+
+.w-\[85\%\] {
+    width: 85%;
+}
+
+.flex-1 {
+    flex: 1 1 0%;
+}
+
+.flex-shrink-0 {
+    flex-shrink: 0;
+}
+
+.block {
+    display: block;
+}
+
+.rounded {
+    border-radius: 0.5rem !important;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+}

@@ -22,7 +22,8 @@ $theme-colors: map-merge($theme-colors, (
     "teal": $teal,
     "navy": $navy,
     "silver": $silver,
-    "yellow": $yellow
+    "light-gray": $light-gray,
+    "yellow": $yellow,
 ));
 // Buttons & inputs' radius
 $border-radius:    2px;

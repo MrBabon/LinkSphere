@@ -11,8 +11,9 @@
   </head>
 
   <body class="">
+    <%= yield :header %>
     <%= render "shared/flashes" %>
-    <main>
+    <main class="bg-white">
       <%= yield %>
     </main>
   </body>

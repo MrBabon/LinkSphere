@@ -1,20 +1,41 @@
-<h2>Log in</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
+<% content_for :header do %>
+  <%= render 'new_header' %>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class="container">
+  <div class="d-flex align-items-center justify-content-center pt-16 mb-1">
+    <h1 class="fw-medium text-charcoal text-uppercase">LinkSphere</h1>
+  </div>
+
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-inputs mx-3 pt-20">
+      <div class="form-group">
+        <%= f.label :email, class: "form-label fw-semibold d-flex justify-content-center" %>
+        <%= f.input :email,
+                    required: false,
+                    autofocus: true,
+                    input_html: { autocomplete: "email", class: "form-control rounded w-100 py-2 px-4 bg-light-gray border border-0" },
+                    label_html: { class: "d-none" } %>
+
+      </div>
+      <div class="form-group">
+        <%= f.label :password, class: "form-label fw-semibold d-flex justify-content-center" %>
+        <%= f.input :password,
+                    required: false,
+                    input_html: { autocomplete: "current-password", class: "form-control rounded w-100 py-2 px-4 bg-light-gray border border-0" },
+                    label_html: { class: "d-none" } %>
+
+      </div>
+      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    </div>
+
+    <div class="form-actions d-flex justify-content-center align-items-center">
+      <%= f.button :submit, "Login", class: "my-2 px-4 py-1 bg-primary rounded-pill fw-semibold text-light-gray" %>
+    </div>
+  <% end %>
+
+  <div class=" mx-2 pb-3 pt-12">
+    <%= link_to "Sign up", new_user_registration_path, class: "md:my-6 md:py-1 md:px-5 md:bg-TapCard-blue md:rounded-full md:text-light-gray" %>
+  </div>
+</div>
+
