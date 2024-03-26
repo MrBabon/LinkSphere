@@ -52,6 +52,8 @@
 <div class="border border-2 border-yellow"></div>
 <div class="m-3 pb-20">
     <h6 class="text-charcoal fw-semibold"><%= current_user.job %></h6>
-    <p class="fw-light text-body-color"><%= current_user.industry.capitalize %></p>
+    <% if current_user.industry.present? %>
+        <p class="fw-light text-body-color"><%= current_user.industry.capitalize %></p>
+    <% end %>
     <p class="text-charcoal fw-light"><%= current_user.biography %></p>
 </div>
