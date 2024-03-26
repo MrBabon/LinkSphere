@@ -9,7 +9,7 @@
 
       <div class="d-flex flex-column justify-content-center align-items-center position-relative bottom-8">
         <% if current_user.avatar.attached? %>
-                <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name.capitalize}", class: "rounded-circle img-avatar w-24 h-24 borde shadow-sm", id: "user-avatar" %>
+                <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name.capitalize}", class: "rounded-circle img-avatar w-24 h-24 border border-white border-2 shadow-sm", id: "user-avatar" %>
         <% else %>
                 <%= image_tag("avatar.svg", class: "rounded-circle img-fluid w-24 h-24 border border-2 border-white shadow-sm", alt: "Avatar par défaut", id: "user-avatar") %>
         <% end %>

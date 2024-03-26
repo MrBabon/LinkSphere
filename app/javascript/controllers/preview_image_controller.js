@@ -10,7 +10,7 @@ export default class extends Controller {
     const userAvatar = document.getElementById("user-avatar");
 
     const previewImage = document.createElement("img");
-    previewImage.classList.add("rounded-circle", "img-avatar", "w-24", "h-24", "shadow-sm");
+    previewImage.classList.add("rounded-circle", "img-avatar", "w-24", "h-24", "border", "border-white", "border-2", "shadow-sm");
 
     if (input.files && input.files[0]) {
       const reader = new FileReader();
@@ -31,7 +31,7 @@ export default class extends Controller {
     const userAvatar = document.getElementById("banner");
 
     const previewImage = document.createElement("img");
-    previewImage.classList.add("rounded-circle", "img-avatar", "w-24", "h-24", "shadow-sm");
+    previewImage.classList.add("rounded-circle", "img-avatar", "w-24", "h-24", "border", "border-white", "border-2", "shadow-sm");
 
     if (input.files && input.files[0]) {
       const reader = new FileReader();
