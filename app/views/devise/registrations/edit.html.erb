@@ -20,35 +20,138 @@
         <div id="image-preview-container"></div>
       </div>
 
-      <div class="form-inputs">
-        <%= f.input :email, required: true, autofocus: true %>
-
+      <div class="form-inputs mx-edit">
+        <div class="pb-3 font-light">
+          <p class=" text-silver">Personal informations</p>
+        </div>
+        <div class="form-group">
+          <%= f.label :first_name, 'First Name', class: "form-label fw-semibold" %>
+          <%= f.input :first_name,
+                      required: true,
+                      input_html: { autocomplete: "first name", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label: "First Name",
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :last_name, 'Last Name', class: "form-label fw-semibold" %>
+          <%= f.input :last_name,
+                      required: true,
+                      input_html: { autocomplete: "last name", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label: "Last Name",
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :phone, 'Phone Number', class: "form-label fw-semibold" %>
+          <%= f.input :phone,
+                      required: true,
+                      input_html: { autocomplete: "phone", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label: "Phone Number",
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :email, class: "form-label fw-semibold" %>
+          <%= f.input :email,
+                      required: true,
+                      input_html: { autocomplete: "email", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :job, 'Job Title', class: "form-label fw-semibold" %>
+          <%= f.input :job,
+                      required: false,
+                      input_html: { autocomplete: "job", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :industry, 'Job Title', class: "form-label fw-semibold" %>
+          <%= f.input :industry,
+                      collection: User.industries.map { |key, value| [value, key] },
+                      selected: f.object.industry,
+                      include_blank: 'Please select',
+                      required: false,
+                      input_html: { autocomplete: "industry", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <%# METTRE UNE SEARCH BAR ICI POUR RECHERCHER UNE ENTREPRISE AFIN DE L'AJOUTER DANS SONT PROFIL %>
+        <div class="form-group">
+          <%= f.label :biography, 'Biography', class: "form-label fw-semibold" %>
+          <%= f.input :biography,
+                      required: false,
+                      input_html: { autocomplete: "biography", rows: 5, class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="pb-3 font-light">
+          <p class=" text-silver">Links</p>
+        </div>
+        <div class="form-group">
+          <%= f.label :website, 'Website', class: "form-label fw-semibold" %>
+          <%= f.input :website,
+                      required: false,
+                      input_html: { autocomplete: "website", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :linkedin, 'Linkedin', class: "form-label fw-semibold" %>
+          <%= f.input :linkedin,
+                      required: false,
+                      input_html: { autocomplete: "linkedin", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :instagram, 'Instagram', class: "form-label fw-semibold" %>
+          <%= f.input :instagram,
+                      required: false,
+                      input_html: { autocomplete: "instagram", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :facebook, 'Facebook', class: "form-label fw-semibold" %>
+          <%= f.input :facebook,
+                      required: false,
+                      input_html: { autocomplete: "facebook", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :twitter, 'X', class: "form-label fw-semibold" %>
+          <%= f.input :twitter,
+                      required: false,
+                      input_html: { autocomplete: "twitter", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
         <% end %>
-
-        <%= f.input :password,
-                    hint: "leave it blank if you don't want to change it",
-                    required: false,
-                    input_html: { autocomplete: "new-password" } %>
-        <%= f.input :password_confirmation,
-                    required: false,
-                    input_html: { autocomplete: "new-password" } %>
-        <%= f.input :current_password,
-                    hint: "we need your current password to confirm your changes",
-                    required: true,
-                    input_html: { autocomplete: "current-password" } %>
+        <div class="pb-3 font-light">
+          <p class=" text-silver">Change your password</p>
+        </div>
+        <div class="form-group">
+          <%= f.label :password, 'New Password', class: "form-label fw-semibold" %>
+          <%= f.input :password,
+                      required: false,
+                      input_html: { autocomplete: "new-password", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation, 'Password Confirmation', class: "form-label fw-semibold" %>
+          <%= f.input :password_confirmation,
+                      required: false,
+                      input_html: { autocomplete: "new-password", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :current_password, 'Current Password', class: "form-label fw-semibold" %>
+          <%= f.input :current_password,
+                      hint: "we need your current password to confirm your changes",
+                      required: true,
+                      input_html: { autocomplete: "current-password", class: "form-control rounded w-100 py-2 px-4 bg-white border border-0" },
+                      label_html: { class: "d-none" } %>
+        </div>
       </div>
 
-      <div class="form-actions">
-        <%= f.button :submit, "Update" %>
+      <div class="form-actions d-flex align-items-center justify-content-center">
+        <%= f.button :submit, "Save", class: "btn bg-white rounded shadow-sm px-5 text-uppercase my-5" %>
       </div>
     <% end %>
 
-    <h3>Cancel my account</h3>
-
-    <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-    <%= link_to "Back", :back %>
   </div>
 </div>

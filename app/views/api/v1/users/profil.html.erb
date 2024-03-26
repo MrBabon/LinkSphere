@@ -26,7 +26,7 @@
                 <span class="fw-light"><%= current_user.website %></span>
             </div>
         <% end %>
-        <div class="flex justify-evenly items-center mt-1">
+        <div class="d-flex justify-content-evenly align-items-center mt-1">
             <% if current_user.twitter.present? %>
                 <a href="https://<%= current_user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
             <% end %>
@@ -51,11 +51,7 @@
 </div>
 <div class="border border-2 border-yellow"></div>
 <div class="m-3 pb-20">
-    <h6 class="text-charcoal fw-semibold">Concepteur<%= current_user.job %></h6>
-    <p class="fw-light text-body-color">Industry<%= current_user.industry %></p>
-    <p class="text-charcoal fw-light">Biography<%= current_user.biography %></p>
-</div>
-
-<div class="d-flex justify-content-center py-5 pt-32">
-            <%= link_to "LOG OUT", destroy_user_session_path, data: {turbo_method: :delete}, class: "my-6 py-1 px-7 bg-light-gray rounded shadow-xl text-uppercase text-charcoal" %>
+    <h6 class="text-charcoal fw-semibold"><%= current_user.job %></h6>
+    <p class="fw-light text-body-color"><%= current_user.industry.capitalize %></p>
+    <p class="text-charcoal fw-light"><%= current_user.biography %></p>
 </div>
