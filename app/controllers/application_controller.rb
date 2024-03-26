@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :check_user_signed_in
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   include Pundit::Authorization
   
@@ -36,6 +38,12 @@ class ApplicationController < ActionController::Base
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)|(^api\/v1\/pages$)/
+  end
+
+  def check_user_signed_in
+    if user_signed_in? && request.original_fullpath == root_path
+      redirect_to profil_api_v1_user_path(current_user)
+    end
   end
 
 

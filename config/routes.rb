@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      # NE FONCTIONNE PAS !
+      # NE FONCTIONNE PAS a voir comment faire plus tard!
       devise_for :users, controllers: {
         sessions: 'api/v1/sessions',
         registrations: 'api/v1/registrations'
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :users do
         member do
           get 'profil'
+          get 'settings'
         end
       end
 

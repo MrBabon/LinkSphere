@@ -1,0 +1,101 @@
+<% content_for :header do %>
+  <%= render 'settings_header' %>
+<% end %>
+
+<div class="h-100 bg-charcoal pt-20 ">
+    <div class="h-auto bg-light-gray rounded-4 shadow-sm mx-3 mb-10">
+        <div class="d-flex justify-content-center align-items-center pt-12 h-10">
+            <h3><%= current_user.full_name %></h3>
+        </div>
+        <hr class="border border-t border-body-color opacity-50">
+        <ul class="list-group fw-light">
+            <li class="list-group-item text-silver border-0">
+                <p class="text-decoration-none">Account Settings</p>
+            </li>
+            <li class="list-group-item border-0">
+                <%= link_to edit_user_registration_path, class: " d-flex justify-content-between align-items-center text-decoration-none text-reset" do %>
+                    <span class="fw-normal">Edit profile</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                <% end %>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">Add a payment method</span>
+                <i class="fa-solid fa-plus"></i>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">Push notifications</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" class="sr-only">
+                    <div class="toggle-slider"></div>
+                </label>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">Messages from contacts</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" class="sr-only">
+                    <div class="toggle-slider"></div>
+                </label>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">Messages from everyone</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" class="sr-only">
+                    <div class="toggle-slider"></div>
+                </label>
+            </li>
+        </ul>
+        <hr class="border border-t border-body-color opacity-50">
+        <ul class="list-group fw-light">
+            <li class="list-group-item text-silver border-0">
+                <p class="text-decoration-none">Company</p>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">Create/modify a business page</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </li>
+        </ul>
+        <hr class="border border-t border-body-color opacity-50">
+        <ul class="list-group fw-light">
+            <li class="list-group-item text-silver border-0">
+                <p class="text-decoration-none">Events</p>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">Create an event</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </li>
+        </ul>
+        <hr class="border border-t border-body-color opacity-50">
+        <ul class="list-group fw-light">
+            <li class="list-group-item text-silver border-0">
+                <p class="text-decoration-none">More</p>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">About us</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">Privacy policy</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">Terms and conditions</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <span class="fw-normal">Manage blocked profil</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </li>
+            <li class="list-group-item d-flex align-items-center justify-content-between border-0">
+                <div class="w-100 d-flex justify-content-between align-items-center">
+                    <%= button_to registration_path(current_user), class: "btn-delete w-100", data: { confirm: "Are your sure?", turbo_confirm: "Are your sure?" }, method: :delete do %>
+                        <span class="text-danger text-charcoal fw-normal">Delete your account</span>
+                    <% end %>
+                    <i class="fa-solid fa-xmark text-danger"></i>
+                </div>
+            </li>
+        </ul>
+        <div class="d-flex justify-content-center py-5">
+            <%= link_to "LOG OUT", destroy_user_session_path, data: {turbo_method: :delete}, class: "text-decoration-none text-reset mb-10 py-1 px-3 bg-white rounded shadow-sm text-uppercase text-charcoal" %>
+        </div>
+    </div>
+</div>

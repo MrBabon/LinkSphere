@@ -1,4 +1,61 @@
-<h1>PROFIL CURRENT_USER</h1>
-<div class="d-flex justify-center py-5">
-            <%= link_to "LOG OUT", destroy_user_session_path, data: {turbo_method: :delete}, class: "my-6 py-1 px-7 bg-white rounded shadow-xl text-uppercase text-charcoal" %>
+<% content_for :header do %>
+  <%= render 'profil_header' %>
+<% end %>
+<div class="pt-32 bg-charcoal"></div>
+<div class=" d-flex justify-content-center position-relative bottom-12">
+    <% if current_user.avatar.attached? %>
+        <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name}", class: "rounded-circle img-avatar w-28 h-28 border border-2 border-white shadow-sm" %>
+    <% else %>    
+        <%= image_tag("avatar.svg", class: "rounded-circle w-28 h-28 img-fluid border border-2 border-white shadow-sm") %>
+    <% end %>
+</div>
+<div class="d-flex justify-content-center position-relative bottom-8">
+    <div class="d-block justify-content-center">
+        <h2 class="font-jost fw-medium text-silver text-center mb-1"><%= current_user.full_name %></h2>
+        <div class="d-flex align-items-center gap-2 text-sm justify-content-center mb-1">
+            <i class="fa-solid fa-phone text-primary"></i>
+            <span class=" fw-light"><%= current_user.phone %></span>
+        </div>
+        <div class="d-flex align-items-center gap-2 justify-content-center mb-1">
+            <i class="fa-regular fa-envelope text-primary"></i>
+            <span class="fw-light"><%= current_user.email %></span>
+        </div>
+        <% if current_user.website.present? %>
+            <div class="d-flex align-items-center space-x-2 justify-content-center">
+                <i class="fa-solid fa-globe text-primary"></i>            
+                <span class="fw-light"><%= current_user.website %></span>
+            </div>
+        <% end %>
+        <div class="flex justify-evenly items-center mt-1">
+            <% if current_user.twitter.present? %>
+                <a href="https://<%= current_user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            <% end %>
+            <% if current_user.linkedin.present? %>
+                <a href="https://<%= current_user.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin"></i></a>               
+            <% end %>
+            <% if current_user.facebook.present? %>
+                <a href="https://<%= current_user.facebook %>" target="_blank"><i class="fa-brands fa-facebook"></i></a>                
+            <% end %>
+            <% if current_user.instagram.present? %>
+                <a href="https://<%= current_user.instagram %>" target="_blank"><i class="fa-brands fa-instagram"></i></a>   
+            <% end %>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-around align-items-center">
+    <% if current_user.admin %>
+        <div class="d-flex justify-content-center">
+            <%= link_to "Dashboard Admin", rails_admin_path, class: "px-2 mb-4 rounded fw-semibold btn btn-outline-success" %>
+        </div>
+    <% end %>
+</div>
+<div class="border border-2 border-yellow"></div>
+<div class="m-3 pb-20">
+    <h6 class="text-charcoal fw-semibold">Concepteur<%= current_user.job %></h6>
+    <p class="fw-light text-body-color">Industry<%= current_user.industry %></p>
+    <p class="text-charcoal fw-light">Biography<%= current_user.biography %></p>
+</div>
+
+<div class="d-flex justify-content-center py-5 pt-32">
+            <%= link_to "LOG OUT", destroy_user_session_path, data: {turbo_method: :delete}, class: "my-6 py-1 px-7 bg-light-gray rounded shadow-xl text-uppercase text-charcoal" %>
 </div>

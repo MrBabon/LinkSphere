@@ -1,7 +1,7 @@
-.h-20 {
-    height: 5rem/* 80px */;
+// PADDING
+.pt-6 {
+    padding-top: 1.5rem/* 24px */;
 }
-
 
 .pt-8 {
     padding-top: 2rem/* 32px */;
@@ -23,25 +23,52 @@
     padding-top: 7rem/* 112px */;
 }
 
+.pt-32 {
+    padding-top: 8rem/* 128px */;
+}
+
 .pb-3 {
     padding-bottom: 0.75rem/* 12px */;
 }
 
+.pb-10 {
+    padding-bottom: 2.5rem/* 40px */;
+}
+
+.pb-20 {
+    padding-bottom: 5rem/* 80px */;
+}
 .px-4 {
     padding-left: 1rem/* 16px */;
     padding-right: 1rem/* 16px */;
 }
 
+// MARGIN
+
 .mt-8 {
     margin-top: 2rem/* 32px */;
 }
 
-.w-5 {
-    width: 1.25rem/* 20px */;
-}
-
 .mt-20 {
     margin-top: 5rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem/* 24px */;
+}
+
+.mb-10 {
+    margin-bottom: 2.5rem/* 40px */;
+}
+
+.mx-8 {
+    margin-left: 2rem/* 32px */;
+    margin-right: 2rem/* 32px */;
+}
+
+.my-6 {
+    margin-top: 1.5rem/* 24px */;
+    margin-bottom: 1.5rem/* 24px */;
 }
 
 .my-20 {
@@ -49,13 +76,62 @@
     margin-bottom: 5rem/* 80px */;
 }
 
+
+// HEIGHT
+
+.h-3 {
+    height: 0.75rem/* 12px */;
+}
+
+.h-5 {
+    height: 1.25rem/* 20px */;
+}
+
+.h-10 {
+    height: 2.5rem/* 40px */;
+}
+
+.h-20 {
+    height: 5rem/* 80px */;
+}
+
+.h-24 {
+    height: 6rem/* 96px */;
+}
+
+.h-28 {
+    height: 7rem/* 112px */;
+}
+
+// WIDTH
+
+.w-5 {
+    width: 1.25rem/* 20px */;
+}
+
 .w-6 {
     width: 1.5rem/* 24px */;
+}
+
+.w-7 {
+    width: 1.75rem/* 28px */;
+}
+
+.w-24 {
+    width: 6rem/* 96px */;
+}
+
+.w-28 {
+    width: 7rem/* 112px */;
 }
 
 .w-\[85\%\] {
     width: 85%;
 }
+
+
+
+// DISPLAY
 
 .flex-1 {
     flex: 1 1 0%;
@@ -65,15 +141,57 @@
     flex-shrink: 0;
 }
 
-.block {
-    display: block;
-}
-
+// BORDER-RADIUS
 .rounded {
     border-radius: 0.5rem !important;
 }
 
+// LEFT
+.left-7 {
+    left: 1.75rem/* 28px */;
+}
+
+// BOTTOM
+.bottom-6 {
+    bottom: 1.5rem/* 24px */;
+}
+
+.bottom-8 {
+    bottom: 2rem/* 32px */;
+}
+
+.bottom-12 {
+    bottom: 3rem;
+}
+
+.bottom-14 {
+    bottom: 3.5rem/* 56px */;
+}
+
+// FOCUS
+
 .form-control:focus {
     outline: none;
     box-shadow: none;
+}
+
+// CURSOR
+.cursor-pointer {
+    cursor: pointer;
+}
+
+// BTN DELETE
+
+.btn-delete {
+    background: transparent;
+    border: none;
+    padding: 0;
+    overflow: hidden; /* Pour éviter tout débordement */
+}
+
+// IMAGE
+
+.img-avatar {
+    object-fit: cover;
+    object-position: center;
 }

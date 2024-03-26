@@ -9,5 +9,9 @@ class UserPolicy < ApplicationPolicy
   def profil?
     true
   end
+
+  def settings?
+    true
+  end
   
 end

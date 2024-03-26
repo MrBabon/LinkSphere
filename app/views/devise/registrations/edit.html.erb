@@ -1,35 +1,54 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
+<% content_for :header do %>
+  <%= render 'edit_header' %>
 <% end %>
 
-<h3>Cancel my account</h3>
+<div class="h-100 bg-charcoal pt-28 pb-10">
+  <div class="h-auto bg-light-gray rounded-4 shadow-sm mx-3 mb-10">
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_notification %>
 
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+      <div class="d-flex flex-column justify-content-center align-items-center position-relative bottom-8">
+        <% if current_user.avatar.attached? %>
+                <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name.capitalize}", class: "rounded-circle img-avatar w-24 h-24 borde shadow-sm", id: "user-avatar" %>
+        <% else %>
+                <%= image_tag("avatar.svg", class: "rounded-circle img-fluid w-24 h-24 border border-2 border-white shadow-sm", alt: "Avatar par défaut", id: "user-avatar") %>
+        <% end %>
+        <label for="<%= f.object_name %>_avatar" class="cursor-pointer w-5 h-5 bg-teal rounded-circle position-relative bottom-6 left-7 d-flex align-items-center justify-content-center">
+                <%= image_tag("pen-solid.svg", class: "h-3 fill-yellow") %>
+                <%= f.input :avatar, as: :file, label: false, wrapper: false, input_html: { class: "d-none", data: { controller: "preview-image", action: "change->preview-image#previewImage" } } %>
+        </label>
+        <div id="image-preview-container"></div>
+      </div>
 
-<%= link_to "Back", :back %>
+      <div class="form-inputs">
+        <%= f.input :email, required: true, autofocus: true %>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
+
+        <%= f.input :password,
+                    hint: "leave it blank if you don't want to change it",
+                    required: false,
+                    input_html: { autocomplete: "new-password" } %>
+        <%= f.input :password_confirmation,
+                    required: false,
+                    input_html: { autocomplete: "new-password" } %>
+        <%= f.input :current_password,
+                    hint: "we need your current password to confirm your changes",
+                    required: true,
+                    input_html: { autocomplete: "current-password" } %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Update" %>
+      </div>
+    <% end %>
+
+    <h3>Cancel my account</h3>
+
+    <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+
+    <%= link_to "Back", :back %>
+  </div>
+</div>

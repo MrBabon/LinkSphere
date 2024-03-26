@@ -1,0 +1,14 @@
+<header class="w-100 position-fixed bg-charcoal z-3">
+    <div class="d-flex w-100 justify-content-between align-items-center pt-8 pb-3 px-4 bg-charcoal">
+      <%= link_to settings_api_v1_user_path(current_user) do %>
+              <i class="fa-sharp fa-solid fa-gear fa-lg text-light-gray opacity-50"></i>
+      <% end %>
+      <div class="flex-1 text-center ml-2">
+          <h6 class="mx-auto text-light-gray text-uppercase fw-semibold font-jost">Your account</h6>
+      </div>
+      <%# mettre le lien chatroom plus tard %>
+      <%= link_to settings_api_v1_user_path(current_user) do %>
+              <%= image_tag "envelope.svg", alt: "envelope", class: "w-7" %>
+      <% end %>
+    </div> 
+</header>
