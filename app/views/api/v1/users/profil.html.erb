@@ -28,16 +28,16 @@
         <% end %>
         <div class="d-flex justify-content-evenly align-items-center mt-1">
             <% if current_user.twitter.present? %>
-                <a href="https://<%= current_user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://<%= current_user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter text-black"></i></a>
             <% end %>
             <% if current_user.linkedin.present? %>
-                <a href="https://<%= current_user.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin"></i></a>               
+                <a href="https://<%= current_user.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin text-black"></i></a>               
             <% end %>
             <% if current_user.facebook.present? %>
-                <a href="https://<%= current_user.facebook %>" target="_blank"><i class="fa-brands fa-facebook"></i></a>                
+                <a href="https://<%= current_user.facebook %>" target="_blank"><i class="fa-brands fa-facebook text-black"></i></a>                
             <% end %>
             <% if current_user.instagram.present? %>
-                <a href="https://<%= current_user.instagram %>" target="_blank"><i class="fa-brands fa-instagram"></i></a>   
+                <a href="https://<%= current_user.instagram %>" target="_blank"><i class="fa-brands fa-instagram text-black"></i></a>   
             <% end %>
         </div>
     </div>
