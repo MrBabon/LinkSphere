@@ -25,7 +25,7 @@ class Api::V1::ContactGroupsController < ApplicationController
           redirect_to repertoire_api_v1_user_path(current_user), notice: 'Contact group was successfully created.'
         else
           # Si le groupe n'est pas enregistré, il faudra gérer l'erreur. Par exemple, réafficher le formulaire:
-          render 'users/repertoire'
+          redirect_to repertoire_api_v1_user_path(current_user), alert: "The name was not updated because the length exceeded the allowed limit."
         end
         authorize @contact_group, :create?
       end
