@@ -1,0 +1,37 @@
+<header class="w-100 position-fixed bg-charcoal">
+    <div class="d-flex w-100 justify-content-between align-items-center pt-8 pb-3 px-4  bg-charcoal">
+        <%= link_to repertoire_api_v1_user_path(current_user) do %>
+                <%= image_tag "chevron-left.svg", alt: "chevron", class: "icon w-6 align-middle" %>
+        <% end %>
+        <% if @contact_group.deletable == true %>
+            <div class="flex-1 text-center" data-controller="editable" data-action="click->editable#edit">
+                <h6 class="m-0 align-middle text-light-gray text-uppercase fw-semibold font-jost">
+                    <span data-editable-target="name"><%= @contact_group.name %></span>
+                    <div data-editable-target="form" class="d-none">
+                        <%= simple_form_for([:api, :v1, @contact_group], method: :put, html: { "data-controller": "editable", "data-action": "ajax:success->editable#updateName", class: "d-flex justify-content-center" }) do |f| %>
+                            <%= f.input :name,
+                                        label_html: { class: "d-none"},
+                                        input_html: { placeholder: @contact_group.name, value: "", class: "align-middle m-0 custom-input custom-caret-contact custom-placeholder-contact h-5 w-75  text-light-gray fw-semibold text-center text-uppercase bg-transparent border-0", "data-editable_target": "input", "data-action": "blur->editable#blur" },
+                                        autofocus: true %>
+                            <%= f.button :submit, class: "d-none" %>
+                        <% end %>
+                    </div>
+                </h6>
+            </div>
+        <% else %>
+            <h6 class="m-0 align-middle text-light-gray text-uppercase fw-semibold font-jost"><%= @contact_group.name %></h6>
+        <% end %>
+        <% if @contact_group.deletable == true %>
+            <%= form_with(url: api_v1_contact_group_path(@contact_group), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are your sure?" }) do %>
+            <%= button_tag(type: 'submit', class: "btn-delete") do %>
+                <%= image_tag "trash-fill.svg", alt: "poubelle", class: "w-5 icon align-middle" %>
+            <% end %>
+            <% end %>
+        <% else %>
+        <%# chatrooms_path(current_user) %>
+            <%= link_to repertoire_api_v1_user_path(current_user) do %>
+            <%= image_tag "envelope.svg", alt: "envelope", class: "w-7 icon align-middle" %>
+            <% end %>
+        <% end %>
+    </div>
+</header>

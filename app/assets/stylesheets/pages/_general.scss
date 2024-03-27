@@ -175,6 +175,10 @@
     width: 18rem/* 288px */;
 }
 
+.w-\[20\%\] {
+    width: 20%;
+}
+
 .w-\[45\%\] {
     width: 45%;
 }
@@ -204,6 +208,10 @@
 
 .flex-1 {
     flex: 1 1 0%;
+}
+
+.flex-2 {
+    flex: 2;
 }
 
 .flex-shrink-0 {
@@ -253,6 +261,18 @@
 
 ::placeholder {
     color: #9CA3AF;
+}
+
+input.is-valid, .form-control.is-valid {
+    border-color: transparent; /* Remettre la couleur par défaut, ou autre selon votre design */
+    padding-right: calc(1.5em + 0.75rem); /* Ajuster en fonction du padding interne de votre input */
+    background-image: none; /* Supprime l'icône de vérification */
+}
+  
+  
+input:focus, .form-control:focus {
+    border-color: transparent !important;
+    box-shadow: none !important;
 }
 
 // CURSOR

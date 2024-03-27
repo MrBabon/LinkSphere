@@ -11,8 +11,10 @@ class Api::V1::ContactGroupsController < ApplicationController
             @users = @contact_group.users.order(:last_name)
           end
         rescue ActiveRecord::RecordNotFound
-          redirect_to(root_path, alert: "Access denied or Contact Group not found.")
+          render json: { error: "Access denied or Contact Group not found." }, status: :not_found
         end
+        authorize @contact_group, :show?
+
       end
     
       def create
@@ -20,26 +22,29 @@ class Api::V1::ContactGroupsController < ApplicationController
         @contact_group = @repertoire.contact_groups.build(contact_group_params)
         if @contact_group.save
           # Si le groupe de contact est bien enregistré, redirige vers où tu veux, par exemple:
-          redirect_to repertoire_user_path(current_user), notice: 'Contact group was successfully created.'
+          redirect_to repertoire_api_v1_user_path(current_user), notice: 'Contact group was successfully created.'
         else
           # Si le groupe n'est pas enregistré, il faudra gérer l'erreur. Par exemple, réafficher le formulaire:
           render 'users/repertoire'
         end
+        authorize @contact_group, :create?
       end
     
       def update
         @contact_group = ContactGroup.find(params[:id])
         if @contact_group.update(contact_group_params)
-          redirect_to contact_group_path(@contact_group), notice: 'Nom mis à jour avec succès.'
+          redirect_to api_v1_contact_group_path(@contact_group), notice: 'Name updated successfully.'
         else
-          redirect_to contact_group_path(@contact_group), alert: "Marche pas"
+          redirect_to api_v1_contact_group_path(@contact_group), alert: "The name was not updated because the length exceeded the allowed limit."
         end
+        authorize @contact_group, :update?
       end
     
       def destroy
         @contact_group = ContactGroup.find(params[:id])
         @contact_group.destroy
-        redirect_to repertoire_user_path(current_user), notice: 'The group has been successfully deleted.'
+        redirect_to repertoire_api_v1_user_path(current_user), notice: 'The group has been successfully deleted.'
+        authorize @contact_group, :destroy?
       end
     
     

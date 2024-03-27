@@ -10,6 +10,27 @@
     caret-color: #9CA3AF;
 }
 
+.custom-placeholder-contact::placeholder {
+    color: #CBD5E0;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+}
+.custom-input {
+    width: auto; /* ou une largeur spécifique si nécessaire */
+    max-width: 100%; /* pour s'assurer qu'il ne dépasse pas le conteneur */
+    display: inline-block; /* pour que l'élément ne prenne que l'espace nécessaire */
+    margin: 0 auto;
+}
+
+.custom-input:focus {
+    margin: 0 auto; /* Conserve le centrage lors du focus */
+  }
+
+.custom-caret-contact {
+    caret-color: $yellow;
+}
+
 .custom-element::after {
     content: "";
     display: block;
@@ -22,5 +43,9 @@
     background-color: $yellow;
     transform: scale(1);
     transition: transform 0.2s ease-in-out; 
-  }
-  
+}
+
+.icon {
+    /* Adjust the vertical alignment as needed */
+    vertical-align: middle;
+}

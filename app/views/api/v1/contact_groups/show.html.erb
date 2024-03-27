@@ -1,1 +1,38 @@
-<h1>coucou</h1>
+<% content_for :header do %>
+  <%= render 'show_header' %>
+<% end %>
+
+<div class=" pt-16"></div>
+<%= form_with url: api_v1_contact_group_path(@contact_group), method: :get, class: "d-flex justify-content-around items-center space-y-2 py-2 border-y" do %>
+    <%= text_field_tag :search,
+            params[:search],
+            class: "form-control text-black font-light h-full mx-9 h-7 rounded border-none focus:ring-transparent caret-gray-400",
+            placeholder: "Search Contacts"
+        %>
+        <div class="flex justify-center pt-1 pb-2 ">
+            <%= button_tag(type: 'submit') do %> 
+              <%= image_tag "search.svg", alt: 'search', class: "w-8" %>
+            <% end %>
+        </div>
+<% end %>
+<ul>
+  <% @users.group_by { |user| user.created_at.beginning_of_month }.sort.each do |month, users| %>
+    <h3 class=" bg-TapCard-lightGray px-4 border-b shadow-md text-sm font-light"><%= month.strftime("%B %Y") %></h3>
+    <% users.sort_by(&:first_name).each do |user| %>
+      <%= link_to repertoire_user_profile_user_path(user) do %>
+        <li class="flex justify-between items-center p-4 border-b">
+          <div>
+            <p><%= user.full_name %></p>
+          </div>
+          <div>
+            <% if user.avatar.attached? %>
+              <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
+            <% else %>
+              <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  <% end %>
+</ul>
