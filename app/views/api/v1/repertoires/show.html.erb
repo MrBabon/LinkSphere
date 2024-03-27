@@ -1,0 +1,51 @@
+
+<% content_for :header do %>
+  <%= render 'api/v1/repertoires/show_header' %>
+<% end %>
+
+<div class=" pt-32"></div>
+<%= form_with url: repertoire_api_v1_user_path, method: :get, class: "d-flex justify-content-around align-items-center space-y-2 w-100 mt-2 py-2 border-bottom" do %>
+    <%= text_field_tag :search,
+            params[:search],
+            class: "form-control custom-placeholder custom-caret text-charcoal bg-transparent font-light mx-0 w-[65%] mx-edit h-7 border-0",
+            placeholder: "Search Contacts"
+        %>
+        <div class="d-flex justify-content-center align-items-center pb-2">
+            <%= button_tag(type: 'submit', class: "btn-delete") do %> 
+                <%= image_tag "search.svg", alt: 'search', class: "w-8" %>
+            <% end %>
+        </div>
+<% end %>
+<% if @search_active %>
+    <% if @users.any? %>
+        <ul class="text-capitalize border-top border-bottom px-0 py-4">
+            <% @users.each do |user| %>
+                <%= link_to repertoire_user_profile_api_v1_user_path(user) do %>
+                    <li class="d-flex justify-content-between align-items-center mb-3">
+                        <p class="mb-0"><%= user.full_name %></p>
+                        
+                        <% if user.avatar.attached? %>
+                            <%= cl_image_tag user.avatar.key, alt: "Avatar to #{user.first_name}", class: "rounded-circle img-avatar w-12 h-12 border border-2 border-white shadow-sm" %>
+                        <% else %>    
+                            <%= image_tag("avatar.svg", class: "rounded-circle w-12 h-12 img-fluid border border-2 border-white shadow-sm") %>
+                        <% end %>
+                    
+                    </li>
+                <% end %>
+            <% end %>
+        </ul>
+    <% else %>
+        <p class="text-center">No users found.</p>
+    <% end %>
+<% else %>
+    <ul class="text-capitalize w-100 px-0 pt-1">
+        <% @contact_groups.each do |group| %>
+            <%= link_to api_v1_contact_group_path(group), class: "text-decoration-none" do %>
+                <li class="d-flex justify-content-around align-items-center border-bottom mb-2 py-4">
+                    <h6 class="text-charcoal fw-normal mb-0 w-[57%]"><%= group.name %></h6>
+                    <p class=" text-silver mb-0"><%= group.user_contact_groups.count %></p>
+                </li>
+            <% end %>
+        <% end %>    
+    </ul>
+<% end %>

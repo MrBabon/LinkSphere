@@ -84,4 +84,5 @@ gem 'rack-cors', :require => 'rack/cors'
 gem "rails_admin","3.0"
 gem "pundit"
 gem "cloudinary"
+gem "pg_search"
 ##################

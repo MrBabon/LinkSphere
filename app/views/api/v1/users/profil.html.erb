@@ -21,23 +21,23 @@
             <span class="fw-light"><%= current_user.email %></span>
         </div>
         <% if current_user.website.present? %>
-            <div class="d-flex align-items-center space-x-2 justify-content-center">
+            <div class="d-flex align-items-center gap-2 justify-content-center">
                 <i class="fa-solid fa-globe text-primary"></i>            
-                <span class="fw-light"><%= current_user.website %></span>
+                <span class="fw-light text-lowercase"><%= current_user.website %></span>
             </div>
         <% end %>
         <div class="d-flex justify-content-evenly align-items-center mt-1">
             <% if current_user.twitter.present? %>
-                <a href="https://<%= current_user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter text-black"></i></a>
+                <a href="https://<%= current_user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter fa-lg text-black"></i></a>
             <% end %>
             <% if current_user.linkedin.present? %>
-                <a href="https://<%= current_user.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin text-black"></i></a>               
+                <a href="https://<%= current_user.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin fa-lg text-black"></i></a>               
             <% end %>
             <% if current_user.facebook.present? %>
-                <a href="https://<%= current_user.facebook %>" target="_blank"><i class="fa-brands fa-facebook text-black"></i></a>                
+                <a href="https://<%= current_user.facebook %>" target="_blank"><i class="fa-brands fa-facebook fa-lg text-black"></i></a>                
             <% end %>
             <% if current_user.instagram.present? %>
-                <a href="https://<%= current_user.instagram %>" target="_blank"><i class="fa-brands fa-instagram text-black"></i></a>   
+                <a href="https://<%= current_user.instagram %>" target="_blank"><i class="fa-brands fa-instagram fa-lg text-black"></i></a>   
             <% end %>
         </div>
     </div>

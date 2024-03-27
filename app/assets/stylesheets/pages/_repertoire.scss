@@ -1,0 +1,26 @@
+.overlay {
+    background-color: rgba(5, 26, 36, 0.8);
+}
+
+.custom-placeholder::placeholder {
+    color: #9CA3AF; /* slate-400 */
+}
+
+.custom-caret {
+    caret-color: #9CA3AF;
+}
+
+.custom-element::after {
+    content: "";
+    display: block;
+    height: 0.2rem;
+    width: 50%;
+    position: absolute;
+    bottom: -0.4rem;
+    left: 25%;
+    transform-origin: bottom left;
+    background-color: $yellow;
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out; 
+  }
+  
