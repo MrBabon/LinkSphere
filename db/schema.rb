@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_28_093753) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_28_152632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_28_093753) do
     t.index ["user2_id"], name: "index_chatrooms_on_user2_id"
   end
 
+  create_table "contact_entreprises", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.bigint "entreprise_id", null: false
+    t.string "category"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_contact_entreprises_on_entreprise_id"
+    t.index ["event_id"], name: "index_contact_entreprises_on_event_id"
+    t.index ["user_id"], name: "index_contact_entreprises_on_user_id"
+  end
+
   create_table "contact_groups", force: :cascade do |t|
     t.string "name"
     t.boolean "deletable", default: true
@@ -68,6 +81,79 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_28_093753) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["repertoire_id"], name: "index_contact_groups_on_repertoire_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "entreprise_id", null: false
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_employees_on_entreprise_id"
+    t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "entrepreneurs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "entreprise_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_entrepreneurs_on_entreprise_id"
+    t.index ["user_id"], name: "index_entrepreneurs_on_user_id"
+  end
+
+  create_table "entreprises", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "website"
+    t.string "linkedin"
+    t.string "instagram"
+    t.string "facebook"
+    t.string "twitter"
+    t.string "headline"
+    t.string "industry"
+    t.text "description"
+    t.string "siret_number"
+    t.string "tva_number"
+    t.string "address"
+    t.string "phone_number"
+    t.datetime "establishment_date"
+    t.string "legal_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.string "country"
+    t.string "city"
+    t.string "region"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "city"
+    t.string "country"
+    t.string "region"
+    t.string "link"
+    t.text "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string "registration_code"
+    t.bigint "entreprise_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_events_on_entreprise_id"
+  end
+
+  create_table "exhibitors", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "entreprise_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_exhibitors_on_entreprise_id"
+    t.index ["event_id"], name: "index_exhibitors_on_event_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -80,11 +166,31 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_28_093753) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "participations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_participations_on_event_id"
+    t.index ["user_id"], name: "index_participations_on_user_id"
+  end
+
   create_table "repertoires", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_repertoires_on_user_id"
+  end
+
+  create_table "representatives", force: :cascade do |t|
+    t.bigint "exhibitor_id", null: false
+    t.bigint "entreprise_id", null: false
+    t.bigint "employee_id"
+    t.bigint "entrepreneur_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_representatives_on_entreprise_id"
+    t.index ["exhibitor_id"], name: "index_representatives_on_exhibitor_id"
   end
 
   create_table "user_contact_groups", force: :cascade do |t|
@@ -127,10 +233,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_28_093753) do
   add_foreign_key "blocks", "users", column: "blocker_id"
   add_foreign_key "chatrooms", "users", column: "user1_id"
   add_foreign_key "chatrooms", "users", column: "user2_id"
+  add_foreign_key "contact_entreprises", "entreprises"
+  add_foreign_key "contact_entreprises", "events"
+  add_foreign_key "contact_entreprises", "users"
   add_foreign_key "contact_groups", "repertoires"
+  add_foreign_key "employees", "entreprises"
+  add_foreign_key "employees", "users"
+  add_foreign_key "entrepreneurs", "entreprises"
+  add_foreign_key "entrepreneurs", "users"
+  add_foreign_key "events", "entreprises"
+  add_foreign_key "exhibitors", "entreprises"
+  add_foreign_key "exhibitors", "events"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "participations", "events"
+  add_foreign_key "participations", "users"
   add_foreign_key "repertoires", "users"
+  add_foreign_key "representatives", "entreprises"
+  add_foreign_key "representatives", "exhibitors"
   add_foreign_key "user_contact_groups", "contact_groups"
   add_foreign_key "user_contact_groups", "users"
 end
