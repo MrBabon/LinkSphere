@@ -7,7 +7,7 @@
           <h6 class="mx-auto text-light-gray text-uppercase fw-semibold font-jost">Your account</h6>
       </div>
       <%# mettre le lien chatroom plus tard %>
-      <%= link_to settings_api_v1_user_path(current_user) do %>
+      <%= link_to api_v1_chatrooms_path(current_user) do %>
               <%= image_tag "envelope.svg", alt: "envelope", class: "w-7" %>
       <% end %>
     </div> 

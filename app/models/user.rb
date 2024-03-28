@@ -48,6 +48,18 @@ class User < ApplicationRecord
   # REPERTOIRE
   has_one :repertoire, dependent: :destroy
 
+  # CHATROOM & MESSAGE
+  has_many :messages, dependent: :destroy
+  # USERS_CONTACT_GROUPS
+  has_many :users_contact_groups
+  has_many :contact_groups, through: :users_contact_groups
+
+  # BLOCK
+  has_many :blocks_given, foreign_key: :blocker_id, class_name: 'Block', dependent: :destroy
+  has_many :blocked_users, through: :blocks_given, source: :blocked
+  has_many :blocks_received, foreign_key: :blocked_id, class_name: 'Block', dependent: :destroy
+  has_many :blockers, through: :blocks_received, source: :blocker
+
   ##################################
   # FUNCTION USER 
   ##################################
@@ -57,6 +69,15 @@ class User < ApplicationRecord
 
   def industry_form_value
     industry.presence || "Industry not specified"
+  end
+
+  def add_to_everyone_group
+    everyone_group = ContactGroup.find_by(name: 'Everyone')
+    UsersContactGroup.find_or_create_by(user: self, contact_group: everyone_group)
+  end
+
+  def chatrooms
+    Chatroom.where("user1_id = ? OR user2_id = ?", self.id, self.id)
   end
 
   private

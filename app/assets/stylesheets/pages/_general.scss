@@ -121,6 +121,10 @@
     height: 3.5rem/* 56px */;
 }
 
+.h-16 {
+    height: 4rem/* 64px */;
+}
+
 .h-20 {
     height: 5rem/* 80px */;
 }
@@ -163,6 +167,10 @@
     width: 3rem/* 48px */;
 }
 
+.w-16 {
+    width: 4rem/* 64px */;
+}
+
 .w-24 {
     width: 6rem/* 96px */;
 }
@@ -195,6 +203,8 @@
     width: 65%;
 }
 
+
+
 .w-\[85\%\] {
     width: 85%;
 }
@@ -203,6 +213,9 @@
     width: 95%;
 }
 
+.max-w-\[70\%\] {
+    max-width: 70%;
+}
 
 // DISPLAY
 
@@ -223,11 +236,23 @@
     border-radius: 0.5rem !important;
 }
 
+.rounded-xl {
+    border-radius: 0.75rem/* 12px */;
+}
+
 // POSITION
 
 .inset-x-0 {
     left: 0px;
     right: 0px;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+.items-end {
+    align-items: flex-end;
 }
 
 // LEFT
@@ -295,3 +320,10 @@ input:focus, .form-control:focus {
     object-fit: cover;
     object-position: center;
 }
+
+//  COULEUR
+
+.color-gray-500 {
+    color: #6B7280;
+}
+  

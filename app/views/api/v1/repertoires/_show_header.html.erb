@@ -22,8 +22,7 @@
         <div class="flex-1 text-center">
             <h6 class="mx-auto text-light-gray text-uppercase fw-semibold font-jost">Groups</h6>
         </div>
-        <%# chatrooms_path(current_user) %>
-        <%= link_to repertoire_api_v1_user_path(current_user) do %>
+        <%= link_to api_v1_chatrooms_path(current_user) do %>
             <%= image_tag "envelope.svg", alt: "envelope", class: "w-7" %>
         <% end %>
     </div>

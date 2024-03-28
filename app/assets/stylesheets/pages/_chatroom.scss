@@ -1,0 +1,14 @@
+.message-content {
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.views-message {
+    overflow-y: scroll;
+    max-height: 385px;
+}
+
+.hide-scrollbar::-webkit-scrollbar{
+    display: none;
+}

@@ -3,32 +3,32 @@
 <% end %>
 
 <div class=" pt-16"></div>
-<%= form_with url: api_v1_contact_group_path(@contact_group), method: :get, class: "d-flex justify-content-around items-center space-y-2 py-2 border-y" do %>
+<%= form_with url: api_v1_contact_group_path(@contact_group), method: :get, class: "d-flex justify-content-around align-items-center space-y-2 w-100 mt-2 py-2 border-bottom" do %>
     <%= text_field_tag :search,
             params[:search],
-            class: "form-control text-black font-light h-full mx-9 h-7 rounded border-none focus:ring-transparent caret-gray-400",
+            class: "form-control custom-placeholder custom-caret text-charcoal bg-transparent font-light mx-0 w-[65%] mx-edit h-7 border-0",
             placeholder: "Search Contacts"
         %>
-        <div class="flex justify-center pt-1 pb-2 ">
-            <%= button_tag(type: 'submit') do %> 
+        <div class="d-flex justify-content-center align-items-center pb-2">
+            <%= button_tag(type: 'submit', class: "btn-delete") do %> 
               <%= image_tag "search.svg", alt: 'search', class: "w-8" %>
             <% end %>
         </div>
 <% end %>
 <ul>
   <% @users.group_by { |user| user.created_at.beginning_of_month }.sort.each do |month, users| %>
-    <h3 class=" bg-TapCard-lightGray px-4 border-b shadow-md text-sm font-light"><%= month.strftime("%B %Y") %></h3>
+    <h6 class=" bg-light-gray px-4 border-bottom shadow-sm fw-light"><%= month.strftime("%B %Y") %></h6>
     <% users.sort_by(&:first_name).each do |user| %>
       <%= link_to repertoire_user_profile_user_path(user) do %>
-        <li class="flex justify-between items-center p-4 border-b">
+        <li class="d-flex justify-content-between align-items-center p-4 border-bottom">
           <div>
             <p><%= user.full_name %></p>
           </div>
           <div>
             <% if user.avatar.attached? %>
-              <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
+              <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-circle img-avatar w-12 h-12 border border-2 border-white shadow-sm" %>
             <% else %>
-              <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
+              <%= image_tag("avatar.svg", class: "rounded-circle w-12 h-12 img-fluid border border-2 border-white shadow-sm") %>
             <% end %>
           </div>
         </li>

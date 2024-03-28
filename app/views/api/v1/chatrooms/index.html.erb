@@ -1,0 +1,38 @@
+<% content_for :header do %>
+  <%= render 'index_header', chatroom: @chatroom %>
+<% end %>
+
+<div class="pt-20 "></div>
+<div class="w-100">
+  <% @chatrooms.each do |chatroom| %>
+    <%= link_to chatroom_path(chatroom), class: "d-block border-bottom" do %>
+      <div class="d-flex align-items-center px-4 py-3">
+        <div class="flex-shrink-0">
+          <% if chatroom.other_user(current_user).avatar.attached? %>
+            <%= cl_image_tag chatroom.other_user(current_user).avatar.key, alt: "Avatar of #{chatroom.other_user(current_user).first_name}", class: "rounded-circle img-avatar w-16 h-16 border border-2 border-white shadow-sm" %>
+          <% else %>    
+            <%= image_tag("avatar.svg", alt: "Default avatar", class: "rounded-circle w-16 h-16 img-fluid border border-2 border-white shadow-sm") %>
+          <% end %>
+        </div>
+        <div class="flex-grow-1 ml-4 1h-base">
+          <div class="d-flex justify-content-between">
+            <h2 class="fw-semibold text-charcoal"><%= chatroom.other_user(current_user).full_name %></h2>
+            <span class="text-gray-500"><%= chatroom.messages.last.created_at.strftime("%b %d") %></span>
+          </div>
+          <div>
+            <p class="text-charcoal"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></p>
+            <% last_message = chatroom.messages.last %>
+            <p class=" text-silver">
+              <% if last_message.user == current_user %>
+                <span>You: </span>
+              <% else %>
+                <span><%= last_message.user.first_name %>: </span>
+              <% end %>
+              <%= truncate(last_message.content, length: 30) %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

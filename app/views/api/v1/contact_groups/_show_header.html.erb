@@ -28,8 +28,7 @@
             <% end %>
             <% end %>
         <% else %>
-        <%# chatrooms_path(current_user) %>
-            <%= link_to repertoire_api_v1_user_path(current_user) do %>
+            <%= link_to api_v1_chatrooms_path(current_user) do %>
             <%= image_tag "envelope.svg", alt: "envelope", class: "w-7 icon align-middle" %>
             <% end %>
         <% end %>
