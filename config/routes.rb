@@ -25,6 +25,8 @@ Rails.application.routes.draw do
           get 'profil'
           get 'settings'
           get 'repertoire'
+          get 'my_events'
+
         end
       end
 
@@ -35,6 +37,28 @@ Rails.application.routes.draw do
       end
       
       resources :blocks, only: [:create, :destroy]
+
+      resources :events, only: [:index, :show] do
+        member do
+          get 'visitor'
+          get 'exposant'
+        end
+        resources :participations, only: [:create, :destroy]
+      end
+      
+      resources :participations, only: [:update]
+      
+      resources :exhibitors, only: [:show]
+      resources :representatives, only: [:destroy]
+    
+      resources :entreprises, only: [:edit, :update, :show, :new, :create] do
+        resources :employees, only: [:destroy]
+        resources :contact_entreprises, only: :create
+        member do
+          post 'add_representatives'
+          get 'dashboard'
+        end
+      end
     end
   end
   # FIN API ROUTES

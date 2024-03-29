@@ -1,0 +1,21 @@
+<header class="w-full fixed bg-TapCard-charcoal">
+    <div class="flex  justify-between items-center pt-8 pb-3 px-4  z-50">
+        <%= link_to api_v1_events_path do %>
+            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-6" %>
+        <% end %>
+    <div class="flex-1 text-center ml-2">
+        <h2 class="mx-auto text-TapCard-lightGray uppercase font-bold font-jost">Event</h2>
+    </div>
+    <%= link_to api_v1_chatrooms_path(current_user) do %>
+        <%= image_tag "envelope.svg", alt: "envelope", class: "w-7" %>
+    <% end %>
+    </div>
+    <div class="flex justify-around bg-white px-4 py-3">
+        <%= link_to api_v1_events_path do %>
+            <h6 class="text-xs font-semibold font-jost">All Upcoming Events</h6>
+        <% end %>
+        <%= link_to my_events_api_v1_user_path(current_user) do %>
+            <h6 class="text-xs font-semibold font-jost">My Events</h6>
+        <% end %>
+    </div>
+</header>

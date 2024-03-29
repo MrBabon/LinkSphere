@@ -1,0 +1,46 @@
+.custom-btn-event {
+    padding-left: 2px;
+    padding-right: 2px;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: #FFD115;
+}
+
+.custom-btn-yellow {
+    outline-color: #FFD115;
+}
+
+.custom-btn-blue {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: #368FE6;
+}
+
+.custom-btn-green {
+    outline-color: #22c55e;
+}
+
+.align-middle {
+    vertical-align: middle;
+}
+
+.d-flex .align-middle {
+    display: inline-flex;
+    align-items: center;
+}
+
+.translate-y-full {
+    transform: translateY(100%);
+}
+.translate-y-0 {
+    transform: translateY(0);
+}
+
+.animation-filter {
+    transition: transform 150ms;
+    transform-style: preserve-3d;
+}
+
+.border-yellow-500 {
+    border-color: #f5c20b !important;
+}

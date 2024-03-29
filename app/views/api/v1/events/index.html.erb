@@ -1,0 +1,142 @@
+<% content_for :header do %>
+  <%= render 'index_header' %>
+<% end %>
+
+<div class="pt-33"></div>
+<% @events_by_month.each do |month, events| %>
+    <div class="month-section">
+        <h6 class="bg-light-gray px-4 py-1 border-bottom border-primary border-opacity-50 fw-light">
+        <%= l(month, format: '%B %Y') %>
+        </h6>
+        <% events.each do |event| %>
+            <div class="p-3 border-bottom border-primary border-opacity-50">
+                <div class="d-flex align-items-start justify-content-between ">
+                    <%= link_to api_v1_event_path(event), class: "text-decoration-none" do %>
+                        <p class="custom-btn-event custom-btn-yellow small rounded text-yellow fw-semibold bg-light-gray bg-opacity-50">Learn more</p>
+                    <% end %>
+                    <% if event.logo.attached? %>
+                        <%= cl_image_tag event.logo.key, alt: "Logo to #{event.title}", class: "img-avatar w-14 h-14 shadow-sm" %>
+                    <% else %>    
+                        <%= image_tag("logo_event.svg", class: " w-14 h-14 img-fluid") %>
+                    <% end %>
+                    <% if @participations[event.id] %>
+                        <div class="d-flex flex-column items-start justify-start">
+                            <%= link_to "Registered", api_v1_event_path(event), class: "text-decoration-none custom-btn-event small custom-btn-green  rounded-2 text-success fw-semibold bg-light-gray bg-opacity-50" %>
+                        </div>
+                    <% else %>
+                        <div data-controller="overlay" class="d-flex flex-column items-start justify-start">
+                            <button data-action="click->overlay#toggle" class="btn-delete px-2 custom-btn-blue small rounded text-primary fw-semibold bg-light-gray bg-opacity-50">Register</button>
+                            <div data-overlay-target="overlay" class="d-none fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-50">
+                                <div data-overlay-target="modal" class="d-none mx-2 position-relative w-72 h-auto bg-charcoal py-5 px-4 text-center rounded-xl content-between">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <div class="w-5"></div>
+                                        <% if event.logo.attached? %>
+                                            <%= cl_image_tag current_user.logo.key, alt: "Logo to #{event.title}", class: "img-avatar w-14 h-14 shadow-sm" %>
+                                        <% else %>    
+                                            <%= image_tag("logo_event.svg", class: " w-14 h-14 img-fluid") %>
+                                        <% end %>
+                                        <button data-action="click->overlay#closeModal" class="d-flex justify-start">
+                                            <i class="fa-solid fa-xmark text-yellow w-5"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mb-3">
+                                        <p>Please confirm you attendance at the <%= event.title.capitalize %>.</p>
+                                    </div>
+                                    <div class="d-flex justify-content-center items-center h-100">
+                                        <div class="space-y-1 d-flex flex-column justify-start text-left">
+                                            <div class="d-flex items-center fw-light">
+                                                <div class="d-flex items-center space-x-1">
+                                                    <i class="fa-solid fa-calendar-days text-yellow"></i>
+                                                    <p class="text-left"><%= event.start_time.strftime('%B %d') %> to <%= event.end_time.strftime('%d') %></p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex items-center">
+                                                <div class="d-flex items-center fw-light space-x-2">
+                                                    <i class="fa-solid fa-map-pin text-yellow"></i>
+                                                    <p class="text-left"><%= event.city.capitalize %>, <%= event.country.capitalize %> <%= event.region %></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%# Ajouter un input pour la validation du code + faire un checkbox pour donner l'accord d'apparition ( ajouter une colonne sur la table participation 'accord' en boolean) %>
+                                    <%= simple_form_for([event], url: api_v1_event_participations_path(event), method: :post) do |f| %>
+                                        <%= f.hidden_field :event_id, value: event.id %>
+                                        <%= f.input :registration_code,
+                                                    input_html: { autocomplete: "REGISTRATION CODE", value: "", placeholder: "REGISTRATION CODE", class: "rounded-md w-[70%] h-8 mx-3 mt-3 text-xs text-center placeholder:text-slate-400 text-TapCard-charcoal" },
+                                                    label_html: { class: "hidden" }  %>
+                                        <p class="text-[11px] tracking-tight leading-3 text-left italic">Your DigiCard registration code is provided to you in the confirmation email with your badge/ticket which gives you access to the event.</p>
+                                        <div class="text-left leading-none mb-2">
+                                            <p class="text-[11px] font-semibold italic text-left mt-1">Don’t have your badge yet ?</p>
+                                            <a href="https://<%= event.link %>" target="_blank" class="text-[11px] italic ">Get it <span class=" text-TapCard-yellow">here</span></a>
+                                        </div>
+                                        <div class="border-b border-TapCard-yellow w-[75%] mx-auto my-4"></div>
+                                        <div class="form-actions">
+                                            <div class="py-1 px-0 mx-6 bg-TapCard-yellow text-gray-100 font-medium rounded-md transition-all duration-150 ease-in-out hover:text-white hover:scale-105 sm:place-self-center uppercase">
+                                                <%= f.button :submit,
+                                                        value: "Confirm",
+                                                        class: "uppercase text-lg font-semibold font-jost",
+                                                        data: { action: "click->overlay#closeModal" } %>
+                                            </div>
+                                        </div>
+                                    <% end %>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+                <h5 class="text-center my-2 fw-semibold font-jost text-capitalize text-charcoal"><%= event.title %></h5>
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <div class="d-flex flex-column justify-content-center text-start">
+                        <div class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-map-pin text-yellow align-middle"></i>
+                                <p class="m-0  d-inline align-middle"><%= event.city.capitalize %>, <%= event.country.capitalize %></p>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-calendar-days text-yellow align-middle"></i>
+                            <p class="m-0  d-inline align-middle"><%= event.start_time.strftime('%B %d') %> to <%= event.end_time.strftime('%d') %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+<% end %>
+<div class="pb-24"></div>
+<div class="position-fixed bottom-0 pb-7 w-100 text-light-gray" data-controller="filter">
+    <div id="search-form" class="animation-filter flex-column justify-content-center align-items-center bg-yellow border border-4 border-yellow-500 pt-4 pb- space-y-2  translate-y-full d-none z-2" data-filter-target="form">
+        <%= form_with url: api_v1_events_path, method: :get, class: "d-flex flex-column justify-content-center space-y-2" do %>
+            <%= text_field_tag :country,
+                    params[:country],
+                    class: "form-control text-charcoal fw-light small mx-auto w-75 h-7 rounded-input border-0 shadow-sm",
+                    placeholder: "Select Country"
+                %>
+            <%= text_field_tag :region,
+                    params[:region],
+                    class: "form-control text-charcoal fw-light small mx-auto w-75 h-7 rounded-input border-0 shadow-sm",
+                    placeholder: "Select State"
+                %>
+            <%= text_field_tag :city,
+                    params[:city],
+                    class: "form-control text-charcoal fw-light small mx-auto w-75 h-7 rounded-input border-0 shadow-sm",
+                    placeholder: "Select City"
+                %>
+            <%= text_field_tag :title,
+                    params[:title],
+                    class: "form-control text-charcoal fw-light small mx-auto w-75 h-7 rounded-input border-0 shadow-sm",
+                    placeholder: "Type a title"
+                %>
+            <div class="d-flex justify-content-center pt-1 pb-2">
+                <%= submit_tag "Search", name: "", class: "bg-primary text-decoration-none border-0 rounded-pill px-4 py-1" %>
+            </div>
+        <% end %>
+
+    </div>
+    <div class="d-flex justify-content-center align-items-center bg-primary pb-8 z-50 d-lg-none position-relative">
+        <button data-action="click->filter#toggle" class="btn-delete d-flex align-items-center text-light-gray w-100 d-flex justify-content-center align-items-center gap-2 pt-1">
+            <span class="fw-semibold">Filters</span>
+            <i class="fa-solid fa-chevron-up h-3"  data-filter-target="icon"></i>
+        </button>
+    </div>
+</div>
+
+

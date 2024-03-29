@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <footer class="d-flex flex-shrink-0 justify-content-evenly align-items-center h-14 position-fixed bottom-0 w-100 z-40 bg-yellow py-3 d-lg-none" data-controller="button-footer">
     <%# events_path %>
-    <%= link_to profil_api_v1_user_path(current_user) do %>
+    <%= link_to api_v1_events_path do %>
         <?xml version="1.0" encoding="utf-8"?>
         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-button-footer-target="icon">
           <path d="M22 14V12C22 8.22876 22 6.34315 20.8284 5.17157C19.6569 4 17.7712 4 14 4H10C6.22876 4 4.34315 4 3.17157 5.17157C2 6.34315 2 8.22876 2 12V14C2 17.7712 2 19.6569 3.17157 20.8284C4.34315 22 6.22876 22 10 22H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
