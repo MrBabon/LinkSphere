@@ -3,28 +3,13 @@ class Api::V1::EventsController < ApplicationController
 
     def index
         @events = Event.all
+ 
         @events = policy_scope(Event).where('end_time > ?', Time.zone.today - 1.day).order(start_time: :asc)
+        @events = @events.search_by_city(params[:city]) if params[:city].present?
+        @events = @events.search_by_country(params[:country]) if params[:country].present?
+        @events = @events.search_by_title(params[:title]) if params[:title].present?
+        @events = @events.search_by_region(params[:region]) if params[:region].present?
         @events_by_month = @events.group_by { |event| event.start_time.beginning_of_month }
-        if params[:city].present?
-            filtered_events = @events.search_by_city(params[:city])
-            puts filtered_events.inspect
-        end
-        if params[:country].present?
-            filtered_events = @events.search_by_city(params[:country])
-            puts filtered_events.inspect
-        end
-        if params[:title].present?
-            filtered_events = @events.search_by_city(params[:title])
-            puts filtered_events.inspect
-        end
-        if params[:region].present?
-            filtered_events = @events.search_by_city(params[:region])
-            puts filtered_events.inspect
-        end
-        # @events = @events.search_by_city(params[:city]) if params[:city].present?
-        # @events = @events.search_by_country(params[:country]) if params[:country].present?
-        # @events = @events.search_by_title(params[:title]) if params[:title].present?
-        # @events = @events.search_by_region(params[:region]) if params[:region].present?
         @participations = {}
         @events.each do |event|
           @participations[event.id] = Participation.participation_for(current_user, event)
