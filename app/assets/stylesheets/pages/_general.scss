@@ -85,9 +85,18 @@
     margin-bottom: 2.5rem/* 40px */;
 }
 
+.mr-3 {
+    margin-right: 0.75rem/* 12px */;
+}
+
 .mx-edit {
     margin-left: 1rem;
     margin-right: 1rem;
+}
+
+.mx-6 {
+    margin-left: 1.5rem/* 24px */;
+    margin-right: 1.5rem/* 24px */;
 }
 
 .mx-8 {
@@ -100,6 +109,11 @@
     margin-right: 2.25rem/* 36px */;
 }
 
+.my-4 {
+    margin-top: 1rem/* 24px */;
+    margin-bottom: 1rem/* 24px */;
+}
+
 .my-6 {
     margin-top: 1.5rem/* 24px */;
     margin-bottom: 1.5rem/* 24px */;
@@ -108,6 +122,10 @@
 .my-20 {
     margin-top: 5rem/* 80px */;
     margin-bottom: 5rem/* 80px */;
+}
+
+.space-y-1 > * + * {
+    margin-top: 0.25rem; /* Cela applique une marge en haut à tous les éléments suivant un frère */
 }
 
 .space-y-2 > * + * {
@@ -291,6 +309,10 @@
     justify-content: flex-start;
 }
 
+.content-between {
+    align-content: space-between;
+}
+
 // LEFT
 .left-7 {
     left: 1.75rem/* 28px */;
@@ -363,3 +385,7 @@ input:focus, .form-control:focus {
     color: #6B7280;
 }
   
+
+.text-shadow {
+    text-shadow: 1px 1px 0.5px $gray; /* X-offset, Y-offset, Blur radius, Color */
+}

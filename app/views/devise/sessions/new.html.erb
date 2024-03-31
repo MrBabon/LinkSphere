@@ -3,12 +3,12 @@
 <% end %>
 
 <div class="container">
-  <div class="d-flex align-items-center justify-content-center pt-16 mb-1">
+  <div class="d-flex align-items-center justify-content-center pt-8 mb-1">
     <h1 class="fw-medium text-charcoal text-uppercase">LinkSphere</h1>
   </div>
 
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="form-inputs mx-3 pt-20">
+    <div class="form-inputs mx-3 pt-12">
       <div class="form-group">
         <%= f.label :email, class: "form-label fw-semibold d-flex justify-content-center" %>
         <%= f.input :email,
@@ -34,7 +34,7 @@
     </div>
   <% end %>
 
-  <div class=" mx-2 pb-3 pt-12">
+  <div class=" mx-2 pb-3 pt-6">
     <%= link_to "Sign up", new_user_registration_path, class: "md:my-6 md:py-1 md:px-5 md:bg-TapCard-blue md:rounded-full md:text-light-gray" %>
   </div>
 </div>

@@ -18,15 +18,13 @@ class Api::V1::EventsController < ApplicationController
 
     def show
         @event = Event.find(params[:id])
-        @participation = Participation.participation_for(current_user, @event)
-        @visible_in_participants = {}
+        @participation = Participation.new(event: @event) # Initialisation pour le formulaire
 
-        if @participation.present?
-            @visible_in_participants[@event.id] = @participation.visible_in_participants
-        else
-            @visible_in_participants[@event.id] = false
-        end
+        @existing_participation = Participation.participation_for(current_user, @event)
+        authorize @event
+        @visible_participations = @event.participations.where(visible_in_participants: true)
     end
+      
 
     def exposant
         @event = Event.find(params[:id])

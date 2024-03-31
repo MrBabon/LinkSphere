@@ -14,4 +14,6 @@ class Participation < ApplicationRecord
 
     errors.add(:registration_code, 'Code de participation incorrect') unless event_code.present? && event_code == self.event.registration_code
   end
+
+
 end

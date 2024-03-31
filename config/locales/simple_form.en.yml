@@ -29,3 +29,18 @@ en:
     # prompts:
     #   defaults:
     #     age: 'Select your age'
+    errors:
+      user:
+        first_name:
+          blank: 'First name is required.'
+        last_name:
+          blank: 'Last name is required.'
+        email:
+          blank: 'Email is required.'
+          invalid: 'Email is not valid.'
+        phone:
+          blank: 'Phone number is required.'
+          invalid: 'Phone number is not valid. Please include the country code (e.g., +33).'
+        password:
+          blank: 'Password is required.'
+          too_short: 'Password must be at least %{count} characters long.'

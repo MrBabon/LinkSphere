@@ -11,7 +11,7 @@ class User < ApplicationRecord
   ##################################      
   validates :first_name, presence: true, length: { maximum: 17 }, format: { without: /\s/ }
   validates :last_name, presence: true, length: { maximum: 20 }, format: { without: /\s/ }
-  validates :phone, presence: true, length: { maximum: 20 }
+  validates :phone, phone: { message: I18n.t('errors.messages.invalid_phone_number') }
   validates :biography, length: { maximum: 1000 }
 
   enum industry: {
@@ -53,6 +53,11 @@ class User < ApplicationRecord
   # USERS_CONTACT_GROUPS
   has_many :users_contact_groups
   has_many :contact_groups, through: :users_contact_groups
+
+  # PARTICIPATION
+  has_many :participations, dependent: :destroy
+  has_many :participating_events, through: :participations, source: :event
+  has_many :events, through: :participations
 
   # BLOCK
   has_many :blocks_given, foreign_key: :blocker_id, class_name: 'Block', dependent: :destroy

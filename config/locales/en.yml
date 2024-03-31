@@ -30,4 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  errors:
+    messages:
+      invalid_phone_number: "is not a valid phone number, Make sure to include the country code (ex: +33)."
   hello: "Hello world"

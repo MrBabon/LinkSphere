@@ -195,6 +195,7 @@ GEM
     pg_search (2.3.6)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
+    phonelib (0.8.8)
     popper_js (2.11.8)
     psych (5.1.2)
       stringio
@@ -326,6 +327,7 @@ DEPENDENCIES
   jbuilder
   pg (~> 1.1)
   pg_search
+  phonelib
   puma (~> 5.0)
   pundit
   rack-cors

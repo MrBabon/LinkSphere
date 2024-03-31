@@ -1,11 +1,11 @@
-class EventPolicy < ApplicationPolicy
+class ParticipationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
     end
   end
 
-  def show?
+  def create?
     true
   end
 
