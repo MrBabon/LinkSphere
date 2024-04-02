@@ -36,7 +36,7 @@
                 <%= link_to "Exhibitors", exposant_api_v1_event_path(@event), class: "text-decoration-none btn-delete d-flex align-items-center justify-content-center my-3 mx-auto py-1 small rounded bg-yellow text-light-gray fw-semibold shadow-sm flex-1" %>
                 <% if @visible_participations.exists? %>
                     <div data-controller="overlay" class="d-flex flex-column align-items-start justify-content-start flex-1">
-                        <button data-action="click->overlay#toggle" class="text-decoration-none d-flex align-items-center justify-content-center my-3 mx-auto px-0 py-1 rounded small bg-primary text-light-gray fw-semibold shadow-sm flex-1 w-100">Professional Visitor</button>
+                        <button data-action="click->overlay#toggle" class="text-decoration-none btn-delete d-flex align-items-center justify-content-center my-3 mx-auto px-0 py-1 rounded small bg-primary text-light-gray fw-semibold shadow-sm flex-1 w-100">Professional Visitors</button>
                         <div data-overlay-target="overlay" class="d-none inset-x-0 position-fixed top-0 w-100 h-100 overlay fixed justify-content-center align-items-center text-white z-3">
                             <div data-overlay-target="modal" class="d-none mx-2 position-relative w-72 h-auto bg-charcoal text-light-gray py-4 px-3 rounded-xl content-between">
                                 <button data-action="click->overlay#closeModal" class="d-flex justify-content-start position-absolute top-0 end-0 mt-3 mr-3 btn-delete">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 <% else %>
-                    <%= link_to "Professional visitors", visitor_api_v1_event_path(@event), class: "text-decoration-none d-flex align-items-center justify-content-center my-3 mx-auto px-0 py-1 rounded small bg-primary text-light-gray fw-semibold shadow-sm flex-1" %>
+                    <%= link_to "Professional visitors", visitor_api_v1_event_path(@event), class: "text-decoration-none btn-delete d-flex align-items-center justify-content-center my-3 mx-auto px-0 py-1 rounded small bg-primary text-light-gray fw-semibold shadow-sm flex-1" %>
                 <% end %>
             </div>
             <p class="text-xs text-center fw-light fst-italic">You can no longer participate in this event?</p>

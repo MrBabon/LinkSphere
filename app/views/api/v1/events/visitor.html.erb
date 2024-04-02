@@ -1,22 +1,37 @@
 <% content_for :header do %>
   <%= render 'visitor_header' %>
 <% end %>
-<div class=" pt-33"></div>
+<div class=" pt-32"></div>
+<%# ---------------------------- A MODIFIER !!!! %>
+<%= form_with url: repertoire_api_v1_user_path, method: :get, class: "d-flex justify-content-around align-items-center space-y-2 w-100 mt-2 py-2 border-bottom" do %>
+    <%= text_field_tag :search,
+            params[:search],
+            class: "form-control custom-placeholder custom-caret text-charcoal bg-transparent font-light mx-0 w-[65%] mx-edit h-7 border-0",
+            placeholder: "Search Contacts"
+        %>
+        <div class="d-flex justify-content-center align-items-center pb-2">
+            <%= button_tag(type: 'submit', class: "btn-delete") do %> 
+                <%= image_tag "search.svg", alt: 'search', class: "w-8" %>
+            <% end %>
+        </div>
+<% end %>
+<%# ---------------------------------------------- %>
 <% if @visible_participations.present? %>
-<h1>coucou</h1>
     <% @visible_participations.each do |participation| %>
-        <%= link_to api_v1_user_path(participation.user) do %>
-            <div class="flex justify-between items-center border-b border-TapCard-silver p-4">
-                <div class=" leading-5">
-                    <h1 class="mb-1"><%= participation.user.first_name %> <%= participation.user.last_name %></h1>
-                    <p class=" text-TapCard-silver text-sm font-medium"><%= participation.user.job %></p>
-                    <p class="text-TapCard-teal text-xs capitalize"><%= participation.user.industry %></p>
+        <%= link_to api_v1_user_path(participation.user), class: "text-decoration-none" do %>
+            <div class="d-flex justify-content-between align-items-center border-bottom border-silver px-4 pt-3">
+                <div class="lh-1">
+                    <h5 class="text-charcoal"><%= participation.user.full_name %></h5>
+                    <p class="d-flex flex-column text-silver text-sm font-medium lh-sm">
+                        <span><%= participation.user.job %></span>
+                        <span class="text-teal small text-capitalize"><%= participation.user.industry %></span>
+                    </p>
                 </div>
-                <div>
+                <div class="mb-3">
                     <% if participation.user.avatar.attached? %>
-                        <%= cl_image_tag participation.user.avatar.key, alt: "Avatar to #{participation.user.first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
+                        <%= cl_image_tag participation.user.avatar.key, alt: "Avatar to #{participation.user.first_name}", class: "rounded-circle img-avatar w-14 h-14  shadow-sm" %>
                     <% else %>    
-                        <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
+                        <%= image_tag("avatar.svg", class: "rounded-circle w-14 h-14 img-fluid border border-white shadow-sm") %>
                     <% end %>
                 </div>
             </div>
