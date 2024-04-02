@@ -43,7 +43,7 @@ Rails.application.routes.draw do
           get 'visitor'
           get 'exposant'
         end
-        resources :participations, only: [:create, :destroy]
+        resources :participations, only: [:create, :destroy, :update]
       end
       
       resources :participations, only: [:update]

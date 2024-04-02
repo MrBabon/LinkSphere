@@ -1,0 +1,27 @@
+<% content_for :header do %>
+  <%= render 'visitor_header' %>
+<% end %>
+<div class=" pt-33"></div>
+<% if @visible_participations.present? %>
+<h1>coucou</h1>
+    <% @visible_participations.each do |participation| %>
+        <%= link_to api_v1_user_path(participation.user) do %>
+            <div class="flex justify-between items-center border-b border-TapCard-silver p-4">
+                <div class=" leading-5">
+                    <h1 class="mb-1"><%= participation.user.first_name %> <%= participation.user.last_name %></h1>
+                    <p class=" text-TapCard-silver text-sm font-medium"><%= participation.user.job %></p>
+                    <p class="text-TapCard-teal text-xs capitalize"><%= participation.user.industry %></p>
+                </div>
+                <div>
+                    <% if participation.user.avatar.attached? %>
+                        <%= cl_image_tag participation.user.avatar.key, alt: "Avatar to #{participation.user.first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
+                    <% else %>    
+                        <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+<% else %>
+    <p class="mx-2">No visible participants for this event.</p>
+<% end %>

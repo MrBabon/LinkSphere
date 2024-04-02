@@ -32,44 +32,38 @@
     </div>
     <p class=" mx-3 my-4"><%= @event.description %></p>
     <% if @existing_participation %>
-            <div class="flex items-center justify-center mx-2 space-x-4">
-                <%= link_to "Exhibitors", exposant_api_v1_event_path(@event), class: "flex items-center justify-center my-3 mx-auto py-1 text-xs rounded bg-TapCard-yellow text-TapCard-lightGray font-semibold shadow-md flex-1" %>
-                <% if @visible_participations[@event.id] %>
-                    <%= link_to "Professional visitors", visitor_api_v1_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md flex-1" %>
-                <% else %>
-                    <div data-controller="overlay" class="flex flex-col items-start justify-start flex-1">
-                        <button data-action="click->overlay#toggle" class="flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md w-full">Professional Visitors</button>
-                        <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-[9999]">
-                            <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal py-5 px-4 text-center rounded-xl content-between">
-                                <div class="flex justify-between mb-3">
-                                    <div class="w-5"></div>
+            <div class="d-flex align-items-center justify-content-center mx-2 gap-4">
+                <%= link_to "Exhibitors", exposant_api_v1_event_path(@event), class: "text-decoration-none btn-delete d-flex align-items-center justify-content-center my-3 mx-auto py-1 small rounded bg-yellow text-light-gray fw-semibold shadow-sm flex-1" %>
+                <% if @visible_participations.exists? %>
+                    <div data-controller="overlay" class="d-flex flex-column align-items-start justify-content-start flex-1">
+                        <button data-action="click->overlay#toggle" class="text-decoration-none d-flex align-items-center justify-content-center my-3 mx-auto px-0 py-1 rounded small bg-primary text-light-gray fw-semibold shadow-sm flex-1 w-100">Professional Visitor</button>
+                        <div data-overlay-target="overlay" class="d-none inset-x-0 position-fixed top-0 w-100 h-100 overlay fixed justify-content-center align-items-center text-white z-3">
+                            <div data-overlay-target="modal" class="d-none mx-2 position-relative w-72 h-auto bg-charcoal text-light-gray py-4 px-3 rounded-xl content-between">
+                                <button data-action="click->overlay#closeModal" class="d-flex justify-content-start position-absolute top-0 end-0 mt-3 mr-3 btn-delete">
+                                    <i class="fa-solid fa-xmark text-yellow fa-xmark-custom"></i>
+                                </button>
+                                <div class="d-flex justify-content-center mb-4">
                                     <div class="">
-                                        <i class="fa-solid fa-triangle-exclamation text-TapCard-yellow text-5xl animate-pulse"></i>
+                                        <i class="fa-solid fa-triangle-exclamation text-yellow text-5xl animate-pulse"></i>
                                     </div>
-                                    <button data-action="click->overlay#closeModal" class="flex justify-start">
-                                        <i class="fa-solid fa-xmark text-TapCard-yellow w-5"></i>
-                                    </button>
                                 </div>
                                 <div class="mb-3">
-                                    <p class="text-xs">You do not have access to the room list <%= @event.title.capitalize %>.</p>
+                                    <p class="small">You do not have access to the room list <%= @event.title.capitalize %>.</p>
                                 </div>
-                                <%= simple_form_for(@participation, url: api_v1_participation_path(@event), method: :patch) do |f| %>
-                                    <%= f.hidden_field :event_id, value: @event.id %>
-                                    <div class="border-b border-TapCard-yellow w-[75%] mx-auto my-4"></div>
-                                    <label for="visible" class="flex items-start mb-5 ">
-                                        <%= f.input :visible_in_participants,
-                                                    as: :boolean,
-                                                    wrapper_html: { class: "" },
-                                                    input_html: { id: "visible", class: "w-3 h-3 mr-2 mb-3" },
-                                                    label_html: { class: "hidden"},
-                                                    inline_label: true %>
-                                            <span class="text-left text-[12px] leading-3">I agree to appear in the list of people present at the event. If you check this box, you will have access to the list of registered people.</span>
-                                    </label>
+                                <%= simple_form_for(@participation, url: api_v1_event_participation_path(@event), method: :patch, html: { "data-controller": "participation"}) do |f| %>
+                                    <div class="border-bottom border-yellow w-75 mx-auto my-4"></div>
+                                    <%= f.input :visible_in_participants,
+                                                as: :boolean,
+                                                wrapper_html: { class: "" },
+                                                input_html: { id: "visible_in_participants", "data-participation-target": "checkbox", "data-action": "change->participation#toggleValue"  },
+                                                label: "I agree to appear in the list of people present at the event. If you check this box, you will have access to the list of registered people.",
+                                                label_html: { for: "visible_in_participants", class: "small" },
+                                                inline_label: true %>
                                     <div class="form-actions">
-                                        <div class=" mx-6 bg-TapCard-yellow text-gray-100 font-medium rounded-md transition-all duration-150 ease-in-out hover:text-white hover:scale-105 sm:place-self-center uppercase">
+                                        <div class="d-flex align-items-center justify-content-center py-1 mt-4 px-0 mx-9 bg-yellow text-gray-100  fw-bold rounded text-uppercase">
                                             <%= f.button :submit,
                                                     value: "Confirm",
-                                                    class: "uppercase text-lg font-semibold font-jost",
+                                                    class: "text-uppercase text-light-gray text-shadow w-100 fw-bold font-jost btn-delete confirm-size",
                                                     data: { action: "click->overlay#closeModal" } %>
                                         </div>
                                     </div>
@@ -77,18 +71,17 @@
                             </div>
                         </div>
                     </div>
+                <% else %>
+                    <%= link_to "Professional visitors", visitor_api_v1_event_path(@event), class: "text-decoration-none d-flex align-items-center justify-content-center my-3 mx-auto px-0 py-1 rounded small bg-primary text-light-gray fw-semibold shadow-sm flex-1" %>
                 <% end %>
             </div>
-            <p class="text-xs text-center font-light italic">You can no longer participate in this event?</p>
-            <div class="flex items-center justify-center my-4">
-                <% if @existing_participation&.persisted? %>
-                    <%= link_to "Unsubscribe", api_v1_event_participation_path(@event, @existing_participation), data: {turbo_method: :delete, turbo_confirm: "Please, confirm your unsubscription"}, class: "uppercase bg-TapCard-gray text-white text-xs my-3 px-3 py-1 rounded"%>
-                <% end %>
+            <p class="text-xs text-center fw-light fst-italic">You can no longer participate in this event?</p>
+            <div class="d-flex align-items-center justify-content-center mb-12">
+                <%= link_to "Unsubscribe", api_v1_event_participation_path(@event, @existing_participation), data: {turbo_method: :delete, turbo_confirm: "Please, confirm your unsubscription"}, class: "text-decoration-none fw-semibold text-uppercase bg-gray text-white small mb-10 px-3 py-1 rounded"%>
             </div>
     <% else %>
-        <div></div>
         <div data-controller="overlay" class="d-flex flex-column align-items-start justify-content-start mb-10">
-            <button data-action="click->overlay#toggle" class="btn-delete flex items-center justify-center px-4 mx-auto mb-10 rounded custom-btn-blue text-primary fw-semibold bg-light-gray bg-opacity-50">Register</button>
+            <button data-action="click->overlay#toggle" class="btn-delete d-flex align-items-center justify-content-center px-4 mx-auto mb-10 rounded custom-btn-blue text-primary fw-semibold bg-light-gray bg-opacity-50">Register</button>
             <div data-overlay-target="overlay" class="d-none inset-x-0 position-fixed top-0 w-100 h-100 overlay fixed justify-content-center align-items-center text-white z-3">
                 <div data-overlay-target="modal" class="d-none mx-2 position-relative w-72 h-auto bg-charcoal text-light-gray py-4 px-3 rounded-xl content-between">
                     <button data-action="click->overlay#closeModal" class="d-flex justify-content-start position-absolute top-0 end-0 mt-3 mr-3 btn-delete">
@@ -133,7 +126,11 @@
                                             <a href="https://<%= @event.link %>" target="_blank" class="info-size  fst-italic text-decoration-none text-light-gray">Get it <span class=" text-yellow">here</span></a>
                                         </p>
                                     </div>
-                        <%= f.input :visible_in_participants, as: :boolean %>
+                        <%= f.input :visible_in_participants, 
+                                    as: :boolean,
+                                    label: "I refuse to appear in the list of people present at the event. If you check this box, you will not have access to the list of registered people.",
+                                    input_html: { id: "visible_in_participants" },
+                                    label_html: { for: "visible_in_participants", class: "info-size" } %>
                         <div class="form-actions">
                             <div class="d-flex align-items-center justify-content-center py-1 mt-4 px-0 mx-9 bg-yellow text-gray-100  fw-bold rounded text-uppercase">
                                 <%= f.button :submit,

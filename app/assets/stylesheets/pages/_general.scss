@@ -85,6 +85,9 @@
     margin-bottom: 2.5rem/* 40px */;
 }
 
+.mb-12 {
+    margin-bottom: 3rem;
+}
 .mr-3 {
     margin-right: 0.75rem/* 12px */;
 }
@@ -92,6 +95,11 @@
 .mx-edit {
     margin-left: 1rem;
     margin-right: 1rem;
+}
+
+.mx-2 {
+    margin-left: 0.5rem/* 8px */;
+    margin-right: 0.5rem/* 8px */;
 }
 
 .mx-6 {
@@ -107,6 +115,11 @@
 .mx-9 {
     margin-left: 2.25rem/* 36px */;
     margin-right: 2.25rem/* 36px */;
+}
+
+.my-3 {
+    margin-top: 0.75rem/* 12px */;
+    margin-bottom: 0.75rem/* 12px */;
 }
 
 .my-4 {
@@ -131,6 +144,7 @@
 .space-y-2 > * + * {
     margin-top: 0.5rem; /* Cela applique une marge en haut à tous les éléments suivant un frère */
 }
+
 
 // HEIGHT
 

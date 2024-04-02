@@ -9,4 +9,12 @@ class EventPolicy < ApplicationPolicy
     true
   end
 
+  def visitor?
+    true
+  end
+
+  def exposant?
+    true
+  end
+
 end

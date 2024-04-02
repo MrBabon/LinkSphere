@@ -56,3 +56,22 @@
 .info-size {
     font-size: 11px;
 }
+
+@keyframes pulse {
+    50% {
+        opacity: .5;
+    }
+}
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.text-xs {
+    font-size: 0.75rem/* 12px */;
+    line-height: 1rem/* 16px */;
+}
+
+.text-5xl {
+    font-size: 3rem/* 48px */;
+    line-height: 1;
+}
