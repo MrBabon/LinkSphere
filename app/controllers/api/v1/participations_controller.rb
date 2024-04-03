@@ -9,7 +9,7 @@ class Api::V1::ParticipationsController < ApplicationController
         @participation.user = current_user
         unless @event.valid_registration_code?(params[:participation]['registration_code'])
             flash[:alert] = "Incorrect entry code."
-            redirect_to api_v1_event_path(@event) and return
+            redirect_to api_v1_events_path and return
         end
         authorize @participation
       
@@ -23,16 +23,14 @@ class Api::V1::ParticipationsController < ApplicationController
     def update
         @event = Event.find(params[:event_id])
         @participation = Participation.find_by(user_id: current_user.id, event_id: @event.id)
-        @event = @participation.event
-        @participation.visible_in_participants = !@participation.visible_in_participants
+
+        visible = params[:participation][:visible_in_participants].present?
+        @participation.visible_in_participants = !visible
 
         if @participation.update(participation_params)
-            if @participation.previous_changes.present?
-                flash[:notice] = "La participation a été mise à jour avec succès."
-            end
-            redirect_to api_v1_event_path(@participation.event), notice: 'Your participation visibility has been updated.'
+            redirect_to visitor_api_v1_event_path(@participation.event), notice: 'Your participation visibility has been updated.'
         else
-            redirect_to @event, alert: 'Error updating participation.' # Utilisation d'une redirection en cas d'échec
+            redirect_to @event, alert: 'Error updating participation.'
         end
         authorize @participation
     end

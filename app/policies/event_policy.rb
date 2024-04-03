@@ -10,11 +10,18 @@ class EventPolicy < ApplicationPolicy
   end
 
   def visitor?
-    true
+    user.admin? || participant_visible?
   end
 
   def exposant?
     true
+  end
+
+  private
+
+  def participant_visible?
+    # Vérifie si current_user est marqué comme visible dans les participations de l'événement
+    record.participations.where(user: user).first&.visible_in_participants || false
   end
 
 end

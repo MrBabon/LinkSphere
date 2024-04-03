@@ -4,7 +4,7 @@ class Api::V1::PagesController < ApplicationController
     def home
         @info = { message: "Bienvenue sur l'API version 1" }
         if user_signed_in?
-            redirect_to profil_api_v1_user_path(current_user)
+            redirect_to profil_api_v1_user_path(current_user) and return
         end
         respond_to do |format|
             format.json { render json: @info }

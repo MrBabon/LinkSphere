@@ -70,9 +70,10 @@
                                                 <a href="https://<%= event.link %>" target="_blank" class="info-size  fst-italic text-decoration-none text-light-gray">Get it <span class=" text-yellow">here</span></a>
                                             </p>
                                         </div>
+                                        <div class="border-bottom border-yellow w-75 mx-auto my-4"></div>
                                         <%= f.input :visible_in_participants, 
                                                     as: :boolean,
-                                                    label: "I refuse to appear in the list of people present at the event. If you check this box, you will not have access to the list of registered people.",
+                                                    label: "I agree to appear in the list of people present at the event. If you check this box, you will have access to the list of registered people.",
                                                     input_html: { id: "visible_in_participants" },
                                                     label_html: { for: "visible_in_participants", class: "info-size" } %>
                                         <div class="form-actions">

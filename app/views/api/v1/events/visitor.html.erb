@@ -1,7 +1,7 @@
 <% content_for :header do %>
   <%= render 'visitor_header' %>
 <% end %>
-<div class=" pt-32"></div>
+<div class=" pt-33"></div>
 <%# ---------------------------- A MODIFIER !!!! %>
 <%= form_with url: repertoire_api_v1_user_path, method: :get, class: "d-flex justify-content-around align-items-center space-y-2 w-100 mt-2 py-2 border-bottom" do %>
     <%= text_field_tag :search,

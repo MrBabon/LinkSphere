@@ -1,0 +1,60 @@
+<header class="w-100 position-fixed bg-charcoal">
+    <div class="d-flex w-100 justify-content-between align-items-center pt-8 pb-3 px-4 bg-charcoal">
+    <%= link_to api_v1_event_path(@event) do %>
+            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-6" %>
+    <% end %>
+    <div class="flex-1 text-center ml-2">
+        <h6 class="m-0 align-middle text-light-gray text-uppercase fw-semibold font-jost">Meet contacts</h6>
+    </div>
+    <%= link_to api_v1_chatrooms_path(current_user) do %>
+        <%= image_tag "envelope.svg", alt: "envelope", class: "w-7" %>
+    <% end %>
+    </div>
+    <div class="d-flex justify-content-around bg-white px-4 py-3 border-bottom">
+        <%= link_to exposant_api_v1_event_path(@event), class: "text-decoration-none" do %>
+            <h6 class="text-charcoal fw-semibold font-jost position-relative custom-element mt-1">Exhibitors</h6>
+        <% end %>
+        <% if @visible_participations.exists? %>
+            <div data-controller="overlay" class="d-flex flex-column align-items-start justify-content-start">
+                <button data-action="click->overlay#toggle" class="text-decoration-none btn-delete text-charcoal fw-normal font-jost p-0">Professional Visitors</button>
+                <div data-overlay-target="overlay" class="d-none inset-x-0 position-fixed top-0 w-100 h-100 overlay fixed justify-content-center align-items-center text-white z-3">
+                    <div data-overlay-target="modal" class="d-none mx-2 position-relative w-72 h-auto bg-charcoal text-light-gray py-4 px-3 rounded-xl content-between">
+                        <button data-action="click->overlay#closeModal" class="d-flex justify-content-start position-absolute top-0 end-0 mt-3 mr-3 btn-delete">
+                            <i class="fa-solid fa-xmark text-yellow fa-xmark-custom"></i>
+                        </button>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="">
+                                <i class="fa-solid fa-triangle-exclamation text-yellow text-5xl animate-pulse"></i>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <p class="small">You do not have access to the room list <%= @event.title.capitalize %>.</p>
+                        </div>
+                        <%= simple_form_for(@participation, url: api_v1_event_participation_path(@event), method: :patch) do |f| %>
+                            <div class="border-bottom border-yellow w-75 mx-auto my-4"></div>
+                            <%= f.input :visible_in_participants,
+                                        as: :boolean,
+                                        wrapper_html: { class: "" },
+                                        input_html: { id: "visible_in_participants" },
+                                        label: "I agree to appear in the list of people present at the event. If you check this box, you will have access to the list of registered people.",
+                                        label_html: { for: "visible_in_participants", class: "small" },
+                                        inline_label: false %>
+                            <div class="form-actions">
+                                <div class="d-flex align-items-center justify-content-center py-1 mt-4 px-0 mx-9 bg-yellow text-gray-100  fw-bold rounded text-uppercase">
+                                    <%= f.button :submit,
+                                            value: "Confirm",
+                                            class: "text-uppercase text-light-gray text-shadow w-100 fw-bold font-jost btn-delete confirm-size",
+                                            data: { action: "click->overlay#closeModal" } %>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        <% else %>
+            <%= link_to visitor_api_v1_event_path(@event), class: "text-decoration-none" do %>
+                <h6 class="text-charcoal fw-normal font-jost mt-1">Professional Visitors</h6>
+            <% end %>
+        <% end %>
+    </div>
+</header>

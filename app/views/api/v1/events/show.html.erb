@@ -50,15 +50,15 @@
                                 <div class="mb-3">
                                     <p class="small">You do not have access to the room list <%= @event.title.capitalize %>.</p>
                                 </div>
-                                <%= simple_form_for(@participation, url: api_v1_event_participation_path(@event), method: :patch, html: { "data-controller": "participation"}) do |f| %>
+                                <%= simple_form_for(@participation, url: api_v1_event_participation_path(@event), method: :patch) do |f| %>
                                     <div class="border-bottom border-yellow w-75 mx-auto my-4"></div>
                                     <%= f.input :visible_in_participants,
                                                 as: :boolean,
                                                 wrapper_html: { class: "" },
-                                                input_html: { id: "visible_in_participants", "data-participation-target": "checkbox", "data-action": "change->participation#toggleValue"  },
+                                                input_html: { id: "visible_in_participants" },
                                                 label: "I agree to appear in the list of people present at the event. If you check this box, you will have access to the list of registered people.",
                                                 label_html: { for: "visible_in_participants", class: "small" },
-                                                inline_label: true %>
+                                                inline_label: false %>
                                     <div class="form-actions">
                                         <div class="d-flex align-items-center justify-content-center py-1 mt-4 px-0 mx-9 bg-yellow text-gray-100  fw-bold rounded text-uppercase">
                                             <%= f.button :submit,
@@ -114,21 +114,21 @@
                         <%= f.hidden_field :event_id, value: @event.id %>
                         <%= f.input :registration_code,
                                     required: true,
-                                    autofocus: false,
                                     input_html: { autocomplete: "REGISTRATION CODE", value: "", placeholder: "REGISTRATION CODE", class: "form-control border-none custom-caret custom-placeholder rounded  h-8 mx-auto w-75 mt-4 text-center px-0 text-charcoal" },
                                     label_html: { class: "d-none" }  %>
-                                    <div class="text-left">
-                                        <p class=" tracking-tight leading-3 info-size text-left fst-italic">Your DigiCard registration code is provided to you in the confirmation email with your badge/ticket which gives you access to the event.</p>
-                                    </div>
-                                    <div class="text-left lh-sm mb-2">
-                                        <p class="info-size font-semibold fst-italic text-left mt-1">
-                                            Don’t have your badge yet ?
-                                            <a href="https://<%= @event.link %>" target="_blank" class="info-size  fst-italic text-decoration-none text-light-gray">Get it <span class=" text-yellow">here</span></a>
-                                        </p>
-                                    </div>
+                        <div class="text-left">
+                            <p class=" tracking-tight leading-3 info-size text-left fst-italic">Your DigiCard registration code is provided to you in the confirmation email with your badge/ticket which gives you access to the event.</p>
+                        </div>
+                        <div class="text-left lh-sm mb-2">
+                            <p class="info-size font-semibold fst-italic text-left mt-1">
+                                Don’t have your badge yet ?
+                                <a href="https://<%= @event.link %>" target="_blank" class="info-size  fst-italic text-decoration-none text-light-gray">Get it <span class=" text-yellow">here</span></a>
+                            </p>
+                        </div>
+                        <div class="border-bottom border-yellow w-75 mx-auto my-4"></div>
                         <%= f.input :visible_in_participants, 
                                     as: :boolean,
-                                    label: "I refuse to appear in the list of people present at the event. If you check this box, you will not have access to the list of registered people.",
+                                    label: "I agree to appear in the list of people present at the event. If you check this box, you will have access to the list of registered people.",
                                     input_html: { id: "visible_in_participants" },
                                     label_html: { for: "visible_in_participants", class: "info-size" } %>
                         <div class="form-actions">

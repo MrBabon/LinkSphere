@@ -22,7 +22,7 @@ class Api::V1::EventsController < ApplicationController
 
         @existing_participation = Participation.participation_for(current_user, @event)
         authorize @event
-        @visible_participations = @event.participations.where(visible_in_participants: true)
+        @visible_participations = @event.participations.where(visible_in_participants: false)
     end
       
 
@@ -30,31 +30,28 @@ class Api::V1::EventsController < ApplicationController
         @event = Event.find(params[:id])
         @exhibitors = @event.exhibitors
         @participation = Participation.participation_for(current_user, @event)
-        @visible_in_participants = {}
-
-        if @participation.present?
-            @visible_in_participants[@event.id] = @participation.visible_in_participants
-        else
-            @visible_in_participants[@event.id] = false
-        end
     end
 
     def visitor
         @event = Event.find(params[:id])
-        authorize @event
-        @visible_participations = @event.participations.where(visible_in_participants: false)
+        authorize @event, :visitor?
+        @visible_participations = @event.participations.where(visible_in_participants: true)
         if current_user
             user_participation = Participation.find_by(event_id: @event.id, user_id: current_user.id)
-            if user_participation && user_participation.visible_in_participants
+            if user_participation && !user_participation.visible_in_participants
                 # Exclure la participation de l'utilisateur s'il a choisi de ne pas être visible
-                redirect_to api_v1_event_path(@event), alert: "Vous n'avez pas accès à cette page. Veuillez valider votre visibilité pour y accéder."
+                redirect_to api_v1_event_path(@event), alert: "You do not have access to this page. Please validate your visibility to access it."
                 return
             end
             @visible_participations = @visible_participations.where.not(id: user_participation.id)
         else
             # Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-            redirect_to new_user_session_path, notice: "Vous devez être connecté pour accéder à cette page."
+            redirect_to new_user_session_path, notice: "You must be logged in to access this page."
         end    
+        respond_to do |format|
+            format.html # Vue HTML pour les utilisateurs autorisés
+            format.json { render json: @visible_participations } # ou un format adapté selon votre API
+        end
     end
 
     def exposant
@@ -62,14 +59,7 @@ class Api::V1::EventsController < ApplicationController
         authorize @event
         @exhibitors = @event.exhibitors
         @participation = Participation.participation_for(current_user, @event)
-        @visible_in_participants = {}
-
-        if @participation.present?
-            @visible_in_participants[@event.id] = @participation.visible_in_participants
-        else
-            # S'il n'y a pas de participation, définissez la visibilité sur false
-            @visible_in_participants[@event.id] = false
-        end
+        @visible_participations = @event.participations.where(visible_in_participants: false)
     end
 
     private
