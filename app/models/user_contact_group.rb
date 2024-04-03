@@ -1,4 +1,4 @@
 class UserContactGroup < ApplicationRecord
   belongs_to :user
-  belongs_to :contactGroup
+  belongs_to :contact_group
 end

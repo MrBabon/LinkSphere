@@ -51,8 +51,8 @@ class User < ApplicationRecord
   # CHATROOM & MESSAGE
   has_many :messages, dependent: :destroy
   # USERS_CONTACT_GROUPS
-  has_many :users_contact_groups
-  has_many :contact_groups, through: :users_contact_groups
+  has_many :user_contact_groups
+  has_many :contact_groups, through: :user_contact_groups
 
   # PARTICIPATION
   has_many :participations, dependent: :destroy
