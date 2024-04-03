@@ -14,42 +14,42 @@
     <div data-controller="overlay">
         <button data-action="click->overlay#toggle" class="btn-delete text-decoration-none entreprise-badge bg-yellow text-charcoal fw-semilight">Send us your details</button>
         <div data-overlay-target="overlay" class="d-none inset-x-0 position-fixed top-0 w-100 h-100 overlay fixed justify-content-center align-items-center text-white z-3">
-            <div data-overlay-target="modal" class="d-none mx-2 position-relative w-72 h-auto bg-charcoal text-light-gray py-4 px-3 rounded-xl content-between">
+            <div data-overlay-target="modal" class="d-none mx-3 my-3 position-relative w-auto bg-charcoal text-light-gray py-3 px-3 rounded-xl content-between">
                 <button data-action="click->overlay#closeModal" class="d-flex justify-content-start position-absolute top-0 end-0 mt-3 mr-3 btn-delete">
                     <i class="fa-solid fa-xmark text-teal fa-xmark-custom"></i>
                 </button>
-                <div class="d-flex justify-content-center mb-3">
-                    <div class="text-center">
+                <div class="d-flex justify-content-center ">
+                    <div class="text-center lh-1">
                         <h4 class="fw-bold"><%= @entreprise.name %></h4>
                         <p class="text-teal fw-light"><%= @entreprise.headline %> Cool</p>
                     </div>
                 </div>
-                <div class="mb-3 text-left">
+                <div class=" text-left ">
                     <%= simple_form_for([@entreprise, @contact_entreprise], url: api_v1_entreprise_contact_entreprises_path(@entreprise), method: :post, data: { turbo_frame: "_top" }) do |f| %>
-                        <div class="mb-3 text-left">
-                            <p class="text-xs">What are you interested in?</p>
+                        <div class="mb-1 text-left lh-1">
                             <%= f.input :category, 
                                         collection: ['Our products and/or Services', 'Our job offers', 'Partnership'],
-                                        input_html: { value: "", class: "text-black text-xs w-full rounded-lg" },
-                                        label_html: { class: "d-none"},
+                                        input_html: { value: "", class: "text-charcoal text-xs w-100 rounded" },
+                                        label_html: { class: "small"},
+                                        label: "What are you interested in?",
                                         prompt: "Select" %>
-                            <p class="text-xs">Event</p>
                             <%= f.input :event_id,
                                         collection: Event.all,
-                                        input_html: { value: "ici", class: "text-black text-xs w-full rounded-lg" },
-                                        label_html: { class: "d-none"},
+                                        input_html: { value: "ici", class: "text-charcoal text-xs w-100 rounded" },
+                                        label_html: { class: "small"},
+                                        label: "Event",
                                         prompt: "Select event we met at" %>
-                            <p class="text-xs">Your message:</p>
                             <%= f.input :message,
                                         as: :text,
-                                        input_html: { rows: 4, class:"text-black text-xs w-full rounded-lg" },
-                                        label_html: { class: "d-none"} %>
-                            <div class="flex justify-center items-center">
-                                <%= f.button :submit, "Submit", class: "bg-TapCard-teal text-xs px-6 py-1 rounded-full font-jost uppercase font-bold" %>
+                                        input_html: { rows: 4, class:"text-charcoal  w-100 rounded" },
+                                        label_html: { class: "small"},
+                                        label: "Your message:" %>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <%= f.button :submit, "Submit", class: "bg-teal text-xs text-light-gray px-4 py-1 mb-3 mt-2 rounded font-jost text-uppercase fw-bold" %>
                             </div>
                         </div>
                     <% end %>
-                    <p class="text-xs fw-extralight text-center">By submitting, you consent the company TechPop to have access to your profil. </p>
+                    <p class="text-xs text-silver fw-extralight text-center">By submitting, you consent the company <%= @entreprise.name %> to have access to your profil. </p>
                 </div>
             </div>
         </div>

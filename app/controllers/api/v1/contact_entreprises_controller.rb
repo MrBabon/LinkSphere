@@ -5,9 +5,9 @@ class Api::V1::ContactEntreprisesController < ApplicationController
         @contact_entreprise.entreprise = Entreprise.find(params[:entreprise_id])
         if @contact_entreprise.save
           # Traitement en cas de succès (redirection, message flash, etc.)
-          redirect_to entreprise_path(@contact_entreprise.entreprise), notice: 'Your details were successfully sent.'
+          redirect_to api_v1_entreprise_path(@contact_entreprise.entreprise), notice: 'Your details were successfully sent.'
         else
-          redirect_to entreprise_path(@contact_entreprise.entreprise), alert: 'Your contact details have not been sent.'
+          redirect_to api_v1_entreprise_path(@contact_entreprise.entreprise), alert: 'Your contact details have not been sent.'
         end
     end
 
