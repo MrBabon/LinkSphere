@@ -1,0 +1,11 @@
+.entreprise-badge {
+    position: absolute;
+    right: 0; /* Ajuster en fonction de la taille souhaitée */
+    top: 0; /* Centrer verticalement par rapport au conteneur */
+    padding-right: 0.6em; /* Ajuster en fonction de la taille souhaitée */
+    padding-left: 1em;
+    padding-top: 0.25em;
+    padding-bottom: 0.5em;
+    border-radius: 0 0 0 1em; /* Arrondir les coins à gauche */
+    font-size: 12px; /* Votre taille de texte */
+}

@@ -1,5 +1,5 @@
 class Api::V1::EntreprisesController < ApplicationController
-
+    before_action :set_entreprise, only: :show
     def new
         @entreprise = Entreprise.new
     end
@@ -8,6 +8,7 @@ class Api::V1::EntreprisesController < ApplicationController
         @contact_entreprise = ContactEntreprise.new(entreprise: @entreprise)
         @employees = @entreprise.employees
         @entrepreneurs = @entreprise.entrepreneurs
+        authorize @entreprise
     end
 
     private

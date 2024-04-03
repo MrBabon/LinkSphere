@@ -1,3 +1,81 @@
 <% content_for :header do %>
   <%= render 'show_header' %>
 <% end %>
+
+<div class=" pt-32"></div>
+<div class="d-flex align-items-center justify-content-around mx-7 my-4">
+    <% if @exhibitor.entreprise.logo.attached? %>
+        <%= cl_image_tag @exhibitor.entreprise.logo.key, alt: "Logo entreprise #{@exhibitor.entreprise.name}", class: "rounder object-cover object-center w-14 h-14" %>
+    <% else %>
+        <%= image_tag("bag-entreprise.svg", class: "rounder object-cover object-center w-14 h-14") %>
+    <% end %>
+    <div class="space-y-3 d-flex flex-column justify-content-center">
+        <div class="d-flex align-items-center justify-content-center gap-2">
+            <% if @exhibitor.entreprise.twitter.present? %>
+                <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
+                    <a href="https://<%= @exhibitor.entreprise.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter text-white text-xs"></i></a>
+                </div>
+            <% end %>
+            <% if @exhibitor.entreprise.linkedin.present? %>
+                <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
+                    <a href="https://<%= @exhibitor.entreprise.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin text-white text-xs"></i></a>               
+                </div>
+            <% end %>
+            <% if @exhibitor.entreprise.facebook.present? %>
+                <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
+                    <a href="https://<%= @exhibitor.entreprise.facebook %>" target="_blank"><i class="fa-brands fa-facebook text-white text-xs"></i></a>                
+                </div>
+            <% end %>
+            <% if @exhibitor.entreprise.instagram.present? %>
+                <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
+                    <a href="https://<%= @exhibitor.entreprise.instagram %>" target="_blank"><i class="fa-brands fa-instagram text-white text-xs"></i></a>   
+                </div>
+            <% end %>
+        </div>
+        <div>
+            <% if @exhibitor.entreprise.website.present? %>
+                <div class="d-flex align-items-center gap-2 text-xs justify-content-center">
+                    <i class="fa-solid fa-globe text-yellow"></i>            
+                    <span class="text-xs fw-light"><%= @exhibitor.entreprise.website %></span>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<div class="m-4">
+    <h2 class="text-center fw-semibold font-jost"><%= @exhibitor.entreprise.name %></h2>
+    <p class="text-xs fw-light"><%= @exhibitor.entreprise.description %></p>
+    
+</div>
+    <% if @exhibitor.entreprise.representatives.exists? %>
+        <div class="bg-light-gray py-2">    
+            <h4 class="text-center pb-2 text-sm">Ils seront présents !</h4>
+            <div class="flex items-center justify-evenly">
+                <% @exhibitor.entreprise.representatives.each do |representative| %>
+                    <% employee = Employee.find_by(id: representative.employee_id) %>
+                    <% entrepreneur = Entrepreneur.find_by(id: representative.entrepreneur_id) %>
+                    <div class="flex flex-col items-center">
+                        <% if employee && employee.user.avatar.attached? %>
+                            <%= cl_image_tag employee.user.avatar.key, alt: "Avatar de #{employee.user.first_name}", class: "rounded-full object-cover object-center w-10 h-10 border shadow-md" %>
+                        <% else %>    
+                            <%= image_tag("avatar.svg", class: "rounded-full w-10 h-10 bg-cover bg-center border shadow-md") %>
+                        <% end %>
+                        <% if employee %>
+                            <% display_name = employee.user.first_name.length > 5 ? "#{employee.user.first_name[0, 4]}..." : employee.user.first_name %>
+                            <h6><%= display_name %></h6>
+                        <% end %>
+                        <% if entrepreneur %>
+                            <% display_name = entrepreneur.user.first_name.length > 5 ? "#{entrepreneur.user.first_name[0, 4]}..." : entrepreneur.user.first_name %>
+                            <h6><%= display_name %></h6>
+                        <% end %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+<div class="d-flex justify-content-center">
+    <%# api_v1_entreprise_path(@entreprise) %>
+    <%= link_to api_v1_entreprise_path(@entreprise), class: "text-decoration-none" do %>
+        <p class="px-3 py-1 my-4 rounded shadow-sm bg-primary text-light-gray font-medium">Our Business Page</p>
+    <% end %>
+</div>
