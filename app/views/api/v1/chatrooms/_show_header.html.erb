@@ -6,7 +6,7 @@
         <div class="flex-1 text-center ">
             <h6 class="m-0 align-middle text-light-gray text-uppercase fw-semibold font-jost">Chats</h6>
         </div>
-        <%= form_with(url: blocks_path, method: :post) do %>
+        <%= form_with(url: api_v1_blocks_path, method: :post) do %>
             <%= hidden_field_tag :blocked_id, @other_user.id %>
             <%= hidden_field_tag :chatroom_id, @chatroom.id %>
             <%= button_tag(type: 'submit', data: { confirm: "Are you sure?" }) do %>

@@ -12,9 +12,12 @@ organisateur = Entreprise.create(
     instagram: "www.instagram.com",
     facebook: "www.facebook.com",
     twitter: "www.twiter.com",
+    headline: "Technology Service",
+    industry: "Technology",
     description: "Le secret pour être millionnaire, et de simplement déléguer ce que nous savons pas faire."
 )
 
+file_dannacode = URI.open("https://res.cloudinary.com/dilp6xqmb/image/upload/v1704711578/dannacode-logo.png")
 dannacode = Entreprise.create(
     name: "DannaCode",
     email: "christophe.danna@dannacode.com",
@@ -23,8 +26,12 @@ dannacode = Entreprise.create(
     instagram: "www.instagram.com",
     facebook: "www.facebook.com",
     twitter: "www.twiter.com",
+    headline: "Technology Service",
+    industry: "Technology",
     description: "Plus grande entreprise de France, vous souhaitez un site d'exeption ? C'est ici et nul part ailleurs !"
 )
+dannacode.logo.attach(io: file_dannacode, filename: "dannacode.png", content_type: "image?png")
+
 maelcorp = Entreprise.create(
     name: "MaelCorp",
     email: "mael@dannacode.com",
@@ -36,8 +43,8 @@ maelcorp = Entreprise.create(
     description: "Plus grande entreprise de France, vous souhaitez un site d'exeption ? C'est ici et nul part ailleurs !"
 )
 jeux = Event.create(
-    title: "Festival des jeux",
-    address: "47 rue Saint-Georges",
+    title: "Salon de l'agriculture",
+    address: "1 Place de la Porte de Versailles",
     city: "Paris",
     country: "France",
     link: "www.cannesticket.com/fr",

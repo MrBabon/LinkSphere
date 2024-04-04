@@ -1,7 +1,7 @@
 class Api::V1::ChatroomsController < ApplicationController
     def show
         @chatroom = Chatroom.find_by(id: params[:id])
-
+        authorize @chatroom
         if @chatroom
           @message = Message.new
           @messages = @chatroom.messages.order(created_at: :asc)
@@ -19,6 +19,7 @@ class Api::V1::ChatroomsController < ApplicationController
     def create
         other_user = User.find(params[:other_user_id])
         chatroom = find_or_create_chatroom(current_user, other_user)
+        authorize chatroom
         redirect_to api_v1_chatroom_path(chatroom)
     end
 

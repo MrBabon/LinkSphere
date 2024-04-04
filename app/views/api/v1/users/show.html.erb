@@ -1,0 +1,39 @@
+<% content_for :header do %>
+  <%= render 'show_header' %>
+<% end %>
+
+<div class="pt-20"></div>
+<div class="d-flex justify-content-center ">
+    <% if @user.avatar.attached? %>
+        <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-circle img-avatar w-20 h-20 border shadow-sm" %>
+    <% else %>    
+        <%= image_tag("avatar.svg", class: "rounded-circle w-20 h-20 img-fluid border shadow-sm") %>
+    <% end %>
+</div>
+<div class="flex justify-center">
+    <div class="block justify-center">
+        <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= @user.full_name %></h2>
+        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+            <i class="fa-solid fa-phone text-TapCard-blue"></i>
+            <span class=" font-light select-none blur-sm"><%= @user.phone %></span>
+        </div>
+        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+            <i class="fa-regular fa-envelope text-TapCard-blue"></i>
+            <span class=" font-light select-none blur-sm"><%= @user.email %></span>
+        </div>
+        <% if @user.website.present? %>
+            <div class="flex items-center space-x-2 text-xs justify-center">
+                <i class="fa-solid fa-globe text-TapCard-blue"></i>            
+                <span class=" font-light"><%= @user.website %></span>
+            </div>
+        <% end %>
+        <div class="flex justify-start">
+            <% everyone_group = current_user.repertoire.contact_groups.find_by(name: 'Everyone') %>
+            <% if everyone_group && UserContactGroup.exists?(contact_group: everyone_group, user: @user) %>
+                <p class="px-5 py-2 mb-4 mx-auto text-xs rounded outline outline-2 outline-green-500 text-green-500 font-semibold hover:bg-green-500 hover:text-TapCard-lightGray">Already added</p>
+            <% else %>
+                <%= button_to "Add to directory", add_to_directory_api_v1_user_path(@user), method: :post, class: "px-5 py-2 mb-4 mx-auto text-xs rounded outline outline-2 outline-blue-500 text-blue-500 font-semibold hover:bg-blue-500 hover:text-TapCard-lightGray" %>
+            <% end %>
+        </div>
+    </div>
+</div>

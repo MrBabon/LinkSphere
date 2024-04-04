@@ -5,38 +5,38 @@
 <div class=" pt-32"></div>
 <div class="d-flex align-items-center justify-content-around mx-7 my-4">
     <% if @exhibitor.entreprise.logo.attached? %>
-        <%= cl_image_tag @exhibitor.entreprise.logo.key, alt: "Logo entreprise #{@exhibitor.entreprise.name}", class: "rounder object-cover object-center w-14 h-14" %>
+        <%= cl_image_tag @exhibitor.entreprise.logo.key, alt: "Logo entreprise #{@exhibitor.entreprise.name}", class: "rounded img-avatar w-16 h-16" %>
     <% else %>
-        <%= image_tag("bag-entreprise.svg", class: "rounder object-cover object-center w-14 h-14") %>
+        <%= image_tag("bag-entreprise.svg", class: "rounded object-cover object-center w-14 h-14") %>
     <% end %>
-    <div class="space-y-3 d-flex flex-column justify-content-center">
+    <div class="d-flex flex-column justify-content-center">
         <div class="d-flex align-items-center justify-content-center gap-2">
             <% if @exhibitor.entreprise.twitter.present? %>
-                <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
-                    <a href="https://<%= @exhibitor.entreprise.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter text-white text-xs"></i></a>
+                <div class="d-flex align-items-end justify-content-center bg-yellow rounded-circle w-6 h-6">
+                    <a href="https://<%= @exhibitor.entreprise.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter text-white"></i></a>
                 </div>
             <% end %>
             <% if @exhibitor.entreprise.linkedin.present? %>
-                <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
-                    <a href="https://<%= @exhibitor.entreprise.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin text-white text-xs"></i></a>               
+                <div class="d-flex align-items-end justify-content-center bg-yellow rounded-circle w-6 h-6">
+                    <a href="https://<%= @exhibitor.entreprise.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin text-white"></i></a>               
                 </div>
             <% end %>
             <% if @exhibitor.entreprise.facebook.present? %>
-                <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
-                    <a href="https://<%= @exhibitor.entreprise.facebook %>" target="_blank"><i class="fa-brands fa-facebook text-white text-xs"></i></a>                
+                <div class="d-flex align-items-end justify-content-center bg-yellow rounded-circle w-6 h-6">
+                    <a href="https://<%= @exhibitor.entreprise.facebook %>" target="_blank"><i class="fa-brands fa-facebook text-white"></i></a>                
                 </div>
             <% end %>
             <% if @exhibitor.entreprise.instagram.present? %>
-                <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
-                    <a href="https://<%= @exhibitor.entreprise.instagram %>" target="_blank"><i class="fa-brands fa-instagram text-white text-xs"></i></a>   
+                <div class="d-flex align-items-end justify-content-center bg-yellow rounded-circle w-6 h-6">
+                    <a href="https://<%= @exhibitor.entreprise.instagram %>" target="_blank"><i class="fa-brands fa-instagram text-white"></i></a>   
                 </div>
             <% end %>
         </div>
         <div>
             <% if @exhibitor.entreprise.website.present? %>
-                <div class="d-flex align-items-center gap-2 text-xs justify-content-center">
+                <div class="d-flex align-items-center gap-2 justify-content-center mt-3">
                     <i class="fa-solid fa-globe text-yellow"></i>            
-                    <span class="text-xs fw-light"><%= @exhibitor.entreprise.website %></span>
+                    <span class="text-xs fw-medium"><%= @exhibitor.entreprise.website %></span>
                 </div>
             <% end %>
         </div>
@@ -49,7 +49,7 @@
 </div>
     <% if @exhibitor.entreprise.representatives.exists? %>
         <div class="bg-light-gray py-2">    
-            <h4 class="text-center pb-2 text-sm">Ils seront présents !</h4>
+            <h4 class="text-center pb-2 text-sm">Representatives</h4>
             <div class="flex items-center justify-evenly">
                 <% @exhibitor.entreprise.representatives.each do |representative| %>
                     <% employee = Employee.find_by(id: representative.employee_id) %>

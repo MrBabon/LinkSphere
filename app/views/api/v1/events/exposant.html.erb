@@ -24,9 +24,9 @@
             <div class="d-flex align-items-center justify-content-between px-3 py-7">
                 <div class="d-flex align-items-center gap-4">
                     <% if exhibitor.entreprise.logo.attached? %>
-                        <%= cl_image_tag exhibitor.entreprise.logo.key, alt: "Logo entreprise #{exhibitor.entreprise.name}", class: "rounder img-avatar w-10 h-10 shadow-sm" %>
+                        <%= cl_image_tag exhibitor.entreprise.logo.key, alt: "Logo entreprise #{exhibitor.entreprise.name}", class: "rounded img-avatar w-12 h-12 shadow-sm" %>
                     <% else %>
-                        <%= image_tag("bag-entreprise.svg", class: "rounder img-fluid w-10 h-10") %>
+                        <%= image_tag("bag-entreprise.svg", class: "img-fluid w-12 h-12") %>
                     <% end %>
                     <h5 class="fw-medium text-charcoal font-jost"><%= exhibitor.entreprise.name %></h5>
                 </div>

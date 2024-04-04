@@ -20,6 +20,7 @@ class Api::V1::UsersController < ApplicationController
     if blocked
         redirect_to api_v1_root_path, alert: "You cannot view this profile."
     end
+    authorize @user
   end
 
   def profil
@@ -90,6 +91,22 @@ class Api::V1::UsersController < ApplicationController
     end
     @participation = Participation.find_by(user_id: @user.id)  # Assurez-vous que cela correspond à la logique de récupération de votre participation existante
   end
+
+  # A SUPPRIMER PLUS TARD
+
+  def add_to_directory
+    user_to_add = User.find(params[:id])
+    everyone_group = current_user.repertoire.contact_groups.find_by(name: 'Everyone')
+    unless UsersContactGroup.exists?(user: user_to_add, contact_group: everyone_group)
+        UsersContactGroup.create(user: user_to_add, contact_group: everyone_group)
+    end    
+    if everyone_group.save
+        redirect_to user_path(user_to_add), notice: 'User was successfully added to the Everyone group.'
+    else
+        redirect_to user_path(user_to_add), alert: 'There was a problem adding the user to the Everyone group.'
+    end
+  end
+  ########################
 
   private
 

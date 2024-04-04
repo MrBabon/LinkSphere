@@ -65,6 +65,13 @@ class User < ApplicationRecord
   has_many :blocks_received, foreign_key: :blocked_id, class_name: 'Block', dependent: :destroy
   has_many :blockers, through: :blocks_received, source: :blocker
 
+  # ENTREPRENEUR
+  has_many :entrepreneurs, dependent: :destroy
+  has_many :entreprises_as_owner, through: :entrepreneurs, source: :entreprise
+  # EMPLOYEE
+  has_many :employee_relationships, class_name: 'Employee', dependent: :destroy
+  has_many :entreprises_as_employee, through: :employee_relationships, source: :entreprise
+
   ##################################
   # FUNCTION USER 
   ##################################
@@ -83,6 +90,14 @@ class User < ApplicationRecord
 
   def chatrooms
     Chatroom.where("user1_id = ? OR user2_id = ?", self.id, self.id)
+  end
+
+  def entrepreneurs?
+    entrepreneurs.exists?(user: self)
+  end
+
+  def employee_relationships?
+    employee_relationships.exists?(user: self)
   end
 
   private

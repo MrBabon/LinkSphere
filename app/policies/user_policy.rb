@@ -17,5 +17,9 @@ class UserPolicy < ApplicationPolicy
   def my_events?
     true
   end
+
+  def show?
+    true
+  end
   
 end

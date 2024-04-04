@@ -54,57 +54,58 @@
             </div>
         </div>
     </div>
-    <h1 class="text-lg font-black"><%= @entreprise.name %></h1>
-    <h4 class=" text-TapCard-teal text-sm font-light"><%= @entreprise.headline %> Cool</h4>
-    <p><%= @entreprise.industry %></p>
-    <p class="font-light text-xs text-TapCard-charcoal"><%= @entreprise.description %></p>
+    <div class="lh-1">
+        <h4 class="fw-bold text-charcoal"><%= @entreprise.name %></h4>
+        <p class=" text-teal fw-light"><%= @entreprise.headline %></p>
+        <p><%= @entreprise.industry %></p>
+    </div>
+    <p class="fw-light text-xs text-charcoal"><%= @entreprise.description %></p>
 </div>
-<div class="text-white bg-TapCard-teal flex justify-center items-center space-x-2 py-[2px]">
+<div class="text-light-gray bg-primary d-flex justify-content-center align-items-center gap-2">
     <i class="fa-solid fa-globe"></i>
-    <h2 class="text-white font-bold"><%= @entreprise.website %></h2>
+    <span class="text-white text-link fw-bold"><%= @entreprise.website %></span>
 </div>
-<div class="flex flex-col justify-center items-center py-2 bg-TapCard-lightGray">
-    <h4 class="uppercase text-TapCard-charcoal text-sm font-semibold">Follow us</h4>
-    <div class="flex items-center justify-around space-x-4">
+<div class="d-flex flex-column justify-content-center align-items-center py-3 bg-light-gray border-bottom border-teal">
+    <h6 class="text-uppercase text-charcoal fw-semibold mb-3">Follow us</h6>
+    <div class="d-flex align-items-center justify-content-around gap-4">
         <% if @entreprise.twitter.present? %>
-            <a href="https://<%= @entreprise.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter text-TapCard-charcoal text-sm"></i></a>
+            <a href="https://<%= @entreprise.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter text-charcoal text-link"></i></a>
         <% end %>
         <% if @entreprise.linkedin.present? %>
-                <a href="https://<%= @entreprise.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin text-TapCard-charcoal text-sm"></i></a>               
+                <a href="https://<%= @entreprise.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin text-charcoal text-link"></i></a>               
         <% end %>
         <% if @entreprise.facebook.present? %>
-                <a href="https://<%= @entreprise.facebook %>" target="_blank"><i class="fa-brands fa-facebook text-TapCard-charcoal text-sm"></i></a>                
+                <a href="https://<%= @entreprise.facebook %>" target="_blank"><i class="fa-brands fa-facebook text-charcoal text-link"></i></a>                
         <% end %>
         <% if @entreprise.instagram.present? %>
-                <a href="https://<%= @entreprise.instagram %>" target="_blank"><i class="fa-brands fa-instagram text-TapCard-charcoal text-sm"></i></a>   
+                <a href="https://<%= @entreprise.instagram %>" target="_blank"><i class="fa-brands fa-instagram text-charcoal text-link"></i></a>   
         <% end %>
     </div>
 </div>
-<div class="border-b border-TapCard-teal w-full"></div>
-<div class="flex flex-col justify-center items-center my-4">
-    <h1 class="uppercase text-sm font-medium">People</h1>
-    <div class="flex justify-around items-start w-full my-4">
+<div class="d-flex flex-column justify-content-center align-items-center my-4">
+    <h6 class="text-uppercase text-charcoal fw-semibold">People</h6>
+    <div class="d-flex flex-wrap justify-content-around align-items-start w-100 my-4">
         <% @entrepreneurs.each do |entrepreneur| %>          
-            <div class="flex flex-col items-center justify-center">
+            <div class="d-flex flex-column align-items-center justify-content-center">
                 <% if entrepreneur.user.avatar.attached? %>
-                    <%= cl_image_tag entrepreneur.user.avatar.key, alt: "Avatar de #{entrepreneur.user.first_name}", class: "rounded-full object-cover object-center w-10 h-10 border shadow-md" %>
+                    <%= cl_image_tag entrepreneur.user.avatar.key, alt: "Avatar de #{entrepreneur.user.first_name}", class: "rounded-circle img-avatar w-10 h-10 border shadow-sm" %>
                 <% else %>
-                    <%= image_tag("avatar.svg", class: "rounded-full w-10 h-10 bg-cover bg-center border shadow-md") %>
+                    <%= image_tag("avatar.svg", class: "rounded-circle w-10 h-10 img-fluid border shadow-sm") %>
                 <% end %>
                 <% display_name = entrepreneur.user.first_name.length > 5 ? "#{entrepreneur.user.first_name[0, 4]}..." : entrepreneur.user.first_name %>
-                <h6 class="font-medium text-sm"><%= display_name %></h6> 
+                <h6 class="fw-medium"><%= display_name %></h6> 
                 <p class="text-xs">CEO</p>
             </div>
         <% end %>
         <% @employees.each do |employee| %>
-            <div class="flex flex-col items-center justify-center">
+            <div class="d-flex flex-column align-items-center justify-content-center">
                 <% if employee.avatar.attached? %>
-                    <%= cl_image_tag employee.avatar.key, alt: "Avatar de #{employee.first_name}", class: "rounded-full object-cover object-center w-10 h-10 border shadow-md" %>
+                    <%= cl_image_tag employee.avatar.key, alt: "Avatar de #{employee.first_name}", class: "rounded-circle img-avatar w-10 h-10 border shadow-sm" %>
                 <% else %>
-                    <%= image_tag("avatar.svg", class: "rounded-full w-10 h-10 bg-cover bg-center border shadow-md") %>
+                    <%= image_tag("avatar.svg", class: "rounded-circle w-10 h-10 img-fluid border shadow-sm") %>
                 <% end %>
                 <% display_name = employee.first_name.length > 5 ? "#{employee.first_name[0, 4]}..." : employee.first_name %>
-                <h6 class=" font-medium text-sm"><%= display_name %></h6>
+                <h6 class=" fw-medium"><%= display_name %></h6>
             </div>
         
         <% end %>

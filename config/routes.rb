@@ -26,7 +26,9 @@ Rails.application.routes.draw do
           get 'settings'
           get 'repertoire'
           get 'my_events'
-
+          # A SUPRIMER PLUS TARD
+          post 'add_to_directory'
+          ######################
         end
       end
 

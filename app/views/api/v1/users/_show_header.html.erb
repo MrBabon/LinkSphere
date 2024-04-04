@@ -1,0 +1,13 @@
+<header class="w-100 position-fixed bg-charcoal z-3">
+    <div class="d-flex w-100 justify-content-between align-items-center pt-8 pb-3 px-4 bg-charcoal">
+        <%= link_to :back do %>
+                <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-6" %>
+        <% end %>
+        <div class="flex-1 text-center mr-1">
+            <h6 class="m-0 align-middle text-light-gray text-uppercase fw-semibold font-jost">Meet contacts</h6>
+        </div>
+        <%= button_to api_v1_chatrooms_path(other_user_id: @user.id), method: :post, form: { data: { turbo_frame: "_top" }}, class: "btn-delete" do %>
+            <%= image_tag "send.svg", alt: "avion", class: "w-6 mb-1" %>
+        <% end %>
+    </div>
+</header>
