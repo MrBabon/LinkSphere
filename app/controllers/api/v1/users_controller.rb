@@ -69,6 +69,29 @@ class Api::V1::UsersController < ApplicationController
       authorize @repertoire, :show?
   end
 
+  def repertoire_user_profil
+    @user = User.find(params[:id])
+    authorize @user
+    @repertoire = current_user.repertoire
+    @contact_groups = @repertoire.contact_groups
+    @user_contact_group = current_user.repertoire.contact_groups
+    .map(&:user_contact_groups)
+    .flatten
+    .find { |ucg| ucg.user_id == @user.id }
+    user_in_repertoire = current_user.repertoire.contact_groups.any? do |group|
+        group.users.exists?(@user.id)
+    end
+    if @user.entrepreneurs?
+        @entreprise = @user.entreprises_as_owner.first
+    elsif @user.employee_relationships?
+        @employee = @user.entreprises_as_employee.first
+    end
+    unless user_in_repertoire
+        redirect_to(root_path, alert: "Access denied because this user is not in your directory.")
+        return
+    end
+  end
+
   def my_events
     @user = current_user
     authorize @user
@@ -97,13 +120,14 @@ class Api::V1::UsersController < ApplicationController
   def add_to_directory
     user_to_add = User.find(params[:id])
     everyone_group = current_user.repertoire.contact_groups.find_by(name: 'Everyone')
-    unless UsersContactGroup.exists?(user: user_to_add, contact_group: everyone_group)
-        UsersContactGroup.create(user: user_to_add, contact_group: everyone_group)
-    end    
+    unless UserContactGroup.exists?(user: user_to_add, contact_group: everyone_group)
+        UserContactGroup.create(user: user_to_add, contact_group: everyone_group)
+    end
+    authorize user_to_add
     if everyone_group.save
-        redirect_to user_path(user_to_add), notice: 'User was successfully added to the Everyone group.'
+        redirect_to api_v1_user_path(user_to_add), notice: 'User was successfully added to the Everyone group.'
     else
-        redirect_to user_path(user_to_add), alert: 'There was a problem adding the user to the Everyone group.'
+        redirect_to api_v1_user_path(user_to_add), alert: 'There was a problem adding the user to the Everyone group.'
     end
   end
   ########################

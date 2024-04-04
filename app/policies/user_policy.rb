@@ -21,5 +21,13 @@ class UserPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def add_to_directory?
+    true
+  end
+
+  def repertoire_user_profil?
+    true
+  end
   
 end

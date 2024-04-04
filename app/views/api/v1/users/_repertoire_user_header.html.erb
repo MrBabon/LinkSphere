@@ -1,0 +1,32 @@
+<header class="w-100 position-fixed z-3">
+    <div class="d-flex w-100 justify-content-between align-items-center pt-8 pb-3 px-4 bg-charcoal ">
+        <%= link_to repertoire_api_v1_user_path(current_user) do %>
+                <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-6" %>
+        <% end %>
+        <div class="flex-1 text-center ml-1">
+            <h6 class="m-0 align-middle text-light-gray text-uppercase fw-semibold font-jost">Contact</h6>
+        </div>
+        <%= button_to api_v1_chatrooms_path(other_user_id: @user.id), method: :post, form: { data: { turbo_frame: "_top" }}, class: "btn-delete" do %>
+            <%= image_tag "send.svg", alt: "avion", class: "w-6" %>
+        <% end %>
+        </div>
+    </div>
+</header>
+<div data-controller="group" class="z-2 position-fixed w-100 pt-18">
+    <div class="d-flex justify-content-center align-items-center bg-yellow py-1">
+        <button data-action="click->group#toggle" class="btn-delete d-flex align-items-center fw-medium  gap-2 text-gray">
+            <span>Group</span>
+            <i class="fa-solid fa-chevron-down h-3"  data-group-target="icon"></i>
+        </button>
+    </div>
+    <%# Ici faire en sorte d'ajouter l'user dans l'un des group créer par le current_user %>
+    <div data-group-target="form" class="flex-column justify-content-center align-items-center bg-yellow gap-2 p-1 animation-filter translate-y-inverse d-none position-relative z-n1">
+        <div class="text-center bg-light-gray m-1 py-2">
+            <% @contact_groups.each do |group| %>
+                <% if group.deletable %>
+                    <p class="text-capitalize text-gray m-0"><%= group.name %></p>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<% content_for :header do %>
+  <%= render 'repertoire_user_header' %>
+<% end %>
+
+<div class=" pt-28"></div>
+<div class="d-flex justify-content-center ">
+    <% if @user.avatar.attached? %>
+        <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-circle img-avatar w-28 h-28 border shadow" %>
+    <% else %>    
+        <%= image_tag("avatar.svg", class: "rounded-circle w-28 h-28 img-fluid border shadow") %>
+    <% end %>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="d-block justify-content-center">
+        <h2 class="font-jost text-silver text-center my-2 fw-medium"><%= @user.full_name %></h2>
+        <div class="d-flex align-items-center gap-2 small justify-content-center mb-1">
+            <i class="fa-solid fa-phone text-primary"></i>
+            <span class="fw-light select-none"><%= @user.phone %></span>
+        </div>
+        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+            <i class="fa-regular fa-envelope text-TapCard-blue"></i>
+            <span class=" font-light select-none"><%= @user.email %></span>
+        </div>
+        <% if @user.website.present? %>
+            <div class="flex items-center space-x-2 text-xs justify-center">
+                <i class="fa-solid fa-globe text-TapCard-blue"></i>            
+                <span class=" font-light"><%= @user.website %></span>
+            </div>
+        <% end %>
+    </div>
+</div>
+<%# mettre le bloc note ici %>
+<div class="fixed inset-x-0 bottom-0 pb-28 w-full " data-controller="note-toggle">
+    <div data-note-toggle-target="container"  class="transition-transform duration-300 ease-in-out transform translate-y-full">
+        <button data-action="click->note-toggle#toggle" class="flex flex-col justify-center items-center w-full border-t border-TapCard-yellow bg-TapCard-lightGray pb-4 z-50 lg:hidden relative">
+            <div class="border-2 border-TapCard-gray w-14 mt-3 mb-1 rounded-lg"></div>
+            <span class="text-black">Personal note</span>
+        </button>
+        <div id="note-form" class="flex-col justify-center bg-TapCard-lightGray h-[60vh] pt-4 px-1 space-y-2  hidden z-20" data-note-toggle-target="form">
+            <%= simple_form_for([@user, @user_contact_group], url: api_v1_user_user_contact_group_path(@user, @user_contact_group)) do |f| %>
+                <%= f.error_notification %>
+
+                <div class="form-inputs w-full ">
+                    <%= f.input :personal_note,
+                                placeholder: "Add a personalized note ...",
+                                input_html: { class: "bg-TapCard-lightGray text-TapCard-charcoal border-none w-full h-[45vh] resize-none focus:outline-none focus:border-none" },
+                                label_html: { class: "hidden" } %>
+                </div>
+
+                <div class="form-actions flex justify-center">
+                    <%= f.button :submit, 'Update Note', class: "bg-TapCard-navy text-white px-2 py-1 rounded-sm" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

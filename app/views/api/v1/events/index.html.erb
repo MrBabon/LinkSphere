@@ -109,7 +109,7 @@
 <% end %>
 <div class="pb-24"></div>
 <div class="position-fixed bottom-0 pb-7 w-100 text-light-gray" data-controller="filter">
-    <div id="search-form" class="animation-filter flex-column justify-content-center align-items-center bg-yellow border border-4 border-yellow-500 pt-4 pb- space-y-2  translate-y-full d-none z-2" data-filter-target="form">
+    <div id="search-form" class="animation-filter flex-column justify-content-center align-items-center bg-yellow border border-4 border-yellow-500 pt-4 space-y-2  translate-y-full d-none z-2" data-filter-target="form">
         <%= form_with url: api_v1_events_path, method: :get, class: "d-flex flex-column justify-content-center space-y-2" do %>
             <%= text_field_tag :country,
                     params[:country],

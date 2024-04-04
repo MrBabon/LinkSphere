@@ -35,6 +35,9 @@
 .translate-y-0 {
     transform: translateY(0);
 }
+.translate-y-inverse {
+    transform: translateY(-100%);
+}
 
 .animation-filter {
     transition: transform 150ms;

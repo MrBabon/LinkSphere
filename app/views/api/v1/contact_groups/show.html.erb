@@ -15,22 +15,21 @@
             <% end %>
         </div>
 <% end %>
-<ul>
+<ul class="w-100 px-0">
   <% @users.group_by { |user| user.created_at.beginning_of_month }.sort.each do |month, users| %>
-    <h6 class=" bg-light-gray px-4 border-bottom shadow-sm fw-light"><%= month.strftime("%B %Y") %></h6>
+  <div class="month-section">
+    <p class="bg-light-gray px-4 py-1 shadow-sm fw-light"><%= month.strftime("%B %Y") %></p>
+
+  </div>
     <% users.sort_by(&:first_name).each do |user| %>
-      <%= link_to repertoire_user_profile_user_path(user) do %>
-        <li class="d-flex justify-content-between align-items-center p-4 border-bottom">
-          <div>
-            <p><%= user.full_name %></p>
-          </div>
-          <div>
-            <% if user.avatar.attached? %>
-              <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-circle img-avatar w-12 h-12 border border-2 border-white shadow-sm" %>
-            <% else %>
-              <%= image_tag("avatar.svg", class: "rounded-circle w-12 h-12 img-fluid border border-2 border-white shadow-sm") %>
-            <% end %>
-          </div>
+      <%= link_to repertoire_user_profil_api_v1_user_path(user), class: "text-decoration-none" do %>
+        <li class="d-flex justify-content-between align-items-center text-charcoal px-4 border-bottom">
+          <p><%= user.full_name %></p>
+          <% if user.avatar.attached? %>
+            <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-circle mb-3 img-avatar w-12 h-12 border border-2 border-white shadow-sm" %>
+          <% else %>
+            <%= image_tag("avatar.svg", class: "rounded-circle mb-3 w-12 h-12 img-fluid border border-2 border-white shadow-sm") %>
+          <% end %>
         </li>
       <% end %>
     <% end %>

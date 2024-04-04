@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       root to: "pages#home"
 
       resources :users do
-        resources :users_contact_groups, only: [:update]
+        resources :user_contact_groups, only: [:update]
         resource :repertoire, only: [] do
           resources :contact_groups, only: [:create, :new, :edit]
         end
@@ -26,6 +26,7 @@ Rails.application.routes.draw do
           get 'settings'
           get 'repertoire'
           get 'my_events'
+          get 'repertoire_user_profil'
           # A SUPRIMER PLUS TARD
           post 'add_to_directory'
           ######################
