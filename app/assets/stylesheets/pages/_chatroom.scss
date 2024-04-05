@@ -2,11 +2,12 @@
     overflow-wrap: break-word;
     text-overflow: ellipsis;
     overflow: hidden;
+    margin-bottom: 0;
 }
 
 .views-message {
     overflow-y: scroll;
-    max-height: 385px;
+    // max-height: 385px;
 }
 
 .hide-scrollbar::-webkit-scrollbar{

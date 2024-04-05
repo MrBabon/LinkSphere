@@ -20,7 +20,7 @@
     <% if @users.any? %>
         <ul class="text-capitalize border-top border-bottom px-0 py-4">
             <% @users.each do |user| %>
-                <%= link_to repertoire_user_profile_api_v1_user_path(user) do %>
+                <%= link_to repertoire_user_profil_api_v1_user_path(user) do %>
                     <li class="d-flex justify-content-between align-items-center mb-3">
                         <p class="mb-0"><%= user.full_name %></p>
                         

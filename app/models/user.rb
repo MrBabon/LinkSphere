@@ -72,6 +72,13 @@ class User < ApplicationRecord
   has_many :employee_relationships, class_name: 'Employee', dependent: :destroy
   has_many :entreprises_as_employee, through: :employee_relationships, source: :entreprise
 
+  #  PG SEARCH
+  include PgSearch::Model
+  pg_search_scope :search_by_name,
+                  against: [:first_name, :last_name],
+                  using: { tsearch: { prefix: true } }
+
+
   ##################################
   # FUNCTION USER 
   ##################################

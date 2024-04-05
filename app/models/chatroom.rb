@@ -3,6 +3,20 @@ class Chatroom < ApplicationRecord
     belongs_to :user2, class_name: 'User', foreign_key: 'user2_id'
     has_many :messages, dependent: :destroy
   
+
+    # PG SEARCH
+    include PgSearch::Model
+    pg_search_scope :search_by_first_name,
+      against: :first_name,
+      using: {
+        tsearch: { prefix: true } 
+      } 
+    pg_search_scope :search_by_last_name,
+      against: :last_name,
+      using: {
+        tsearch: { prefix: true } 
+      }
+
     def other_user(current_user)
       user1 == current_user ? user2 : user1
     end

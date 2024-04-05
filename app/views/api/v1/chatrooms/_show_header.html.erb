@@ -9,19 +9,19 @@
         <%= form_with(url: api_v1_blocks_path, method: :post) do %>
             <%= hidden_field_tag :blocked_id, @other_user.id %>
             <%= hidden_field_tag :chatroom_id, @chatroom.id %>
-            <%= button_tag(type: 'submit', data: { confirm: "Are you sure?" }) do %>
+            <%= button_tag(type: 'submit', data: { confirm: "Are you sure?" }, class: "btn-delete") do %>
                 <%= image_tag "trash-fill.svg", alt: "poubelle", class: "w-5 icon align-middle" %>
             <% end %>
         <% end %>
 
     </div>
-    <div class="d-flex align-items-center space-x-4 px-8 py-2 bg-white w-full">
+    <div class="d-flex align-items-center gap-4 px-8 pb-2 pt-3 bg-white w-100">
         <% if chatroom.other_user(current_user).avatar.attached? %>
-            <%= cl_image_tag chatroom.other_user(current_user).avatar.key, alt: "Avatar to #{@chatroom.other_user(current_user).first_name}", class: "rounded-circle img-avatar w-12 h-12 border border-2 border-white shadow-sm" %>
+            <%= cl_image_tag chatroom.other_user(current_user).avatar.key, alt: "Avatar to #{@chatroom.other_user(current_user).first_name}", class: "mb-2 rounded-circle img-avatar w-12 h-12 shadow-sm" %>
         <% else %>    
-            <%= image_tag("avatar.svg", class: "rounded-circle w-12 h-12 img-fluid border border-2 border-white shadow-sm") %>
+            <%= image_tag("avatar.svg", class: "rounded-circle w-12 h-12 img-fluid mb-2 shadow-sm") %>
         <% end %>
-        <div>
+        <div class="lh-1">
             <h6 class=" text-charcoal"><%= chatroom.other_user(current_user).full_name %></h6>
             <p class="text-silver"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></p>
         </div>

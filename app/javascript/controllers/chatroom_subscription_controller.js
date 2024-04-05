@@ -34,7 +34,7 @@ export default class extends Controller {
   
   buildMessageElement(currentUserIsSender, message) {
     return `
-      <div class="mb-4 d-flex flex-colomn ${this.justifyClass(currentUserIsSender)}">
+      <div class="mb-4 pt-6 d-flex flex-column ${this.justifyClass(currentUserIsSender)}">
         <div class="max-w-[70%] rounded-xl px-4 py-2 ${this.userStyleClass(currentUserIsSender)}">
           ${message}
         </div>
@@ -42,7 +42,7 @@ export default class extends Controller {
     `
   }
   justifyClass(currentUserIsSender) {
-    return currentUserIsSender ? "items-end" : "items-start"
+    return currentUserIsSender ? "align-items-end" : "align-items-start"
   }
   
   userStyleClass(currentUserIsSender) {

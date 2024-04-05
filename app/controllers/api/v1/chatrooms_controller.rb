@@ -12,8 +12,18 @@ class Api::V1::ChatroomsController < ApplicationController
     end
 
     def index
-        @chatrooms = current_user.chatrooms.joins(:messages).distinct
-        @chatrooms = policy_scope(Chatroom).joins(:messages).distinct
+        @chatrooms = policy_scope(Chatroom).where("user1_id = ? OR user2_id = ?", current_user.id, current_user.id)
+        user_ids = @chatrooms.flat_map { |chatroom| [chatroom.user1_id, chatroom.user2_id] }.uniq - [current_user.id]
+      
+        if params[:search].present?
+            Rails.logger.debug "Search term: #{params[:search]}"
+
+            @users = User.search_by_name(params[:search]).where(id: user_ids)
+            Rails.logger.debug "Filtered users: #{@users.map(&:id)}"
+
+        else
+            @users = User.where(id: user_ids)
+        end  
     end
 
     def create

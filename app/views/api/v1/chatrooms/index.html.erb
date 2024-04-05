@@ -2,37 +2,66 @@
   <%= render 'index_header', chatroom: @chatroom %>
 <% end %>
 
-<div class="pt-20 "></div>
+<div class="pt-20"></div>
+<%= form_with url: api_v1_chatrooms_path(current_user), method: :get, class: "d-flex justify-content-around align-items-center space-y-2 w-100 mt-2 py-2 border-bottom" do %>
+    <%= text_field_tag :search,
+            params[:search],
+            class: "form-control custom-placeholder custom-caret text-charcoal bg-transparent font-light mx-0 w-[65%] mx-edit h-7 border-0",
+            placeholder: "Search Contacts"
+    %>
+    <div class="d-flex justify-content-center align-items-center pb-2">
+        <%= button_tag(type: 'submit', class: "btn-delete") do %> 
+            <%= image_tag "search.svg", alt: 'search', class: "w-8" %>
+        <% end %>
+    </div>
+<% end %>
+
 <div class="w-100">
-  <% @chatrooms.each do |chatroom| %>
-    <%= link_to chatroom_path(chatroom), class: "d-block border-bottom" do %>
-      <div class="d-flex align-items-center px-4 py-3">
-        <div class="flex-shrink-0">
-          <% if chatroom.other_user(current_user).avatar.attached? %>
-            <%= cl_image_tag chatroom.other_user(current_user).avatar.key, alt: "Avatar of #{chatroom.other_user(current_user).first_name}", class: "rounded-circle img-avatar w-16 h-16 border border-2 border-white shadow-sm" %>
-          <% else %>    
-            <%= image_tag("avatar.svg", alt: "Default avatar", class: "rounded-circle w-16 h-16 img-fluid border border-2 border-white shadow-sm") %>
-          <% end %>
-        </div>
-        <div class="flex-grow-1 ml-4 1h-base">
-          <div class="d-flex justify-content-between">
-            <h2 class="fw-semibold text-charcoal"><%= chatroom.other_user(current_user).full_name %></h2>
-            <span class="text-gray-500"><%= chatroom.messages.last.created_at.strftime("%b %d") %></span>
-          </div>
-          <div>
-            <p class="text-charcoal"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></p>
-            <% last_message = chatroom.messages.last %>
-            <p class=" text-silver">
-              <% if last_message.user == current_user %>
-                <span>You: </span>
-              <% else %>
-                <span><%= last_message.user.first_name %>: </span>
-              <% end %>
-              <%= truncate(last_message.content, length: 30) %>
-            </p>
+  <% if params[:search].present? %>
+    <% @users.each do |user| %>
+      <%= link_to api_v1_chatroom_path(user), class: "d-block border-bottom text-decoration-none" do %>
+        <div class="d-flex align-items-center px-4 py-3">
+          <div class="flex-shrink-0">
+            <% if user.avatar.attached? %>
+              <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-circle img-avatar w-16 h-16 border border-2 border-white shadow-sm" %>
+            <% else %>
+              <%= image_tag("avatar.svg", alt: "Default avatar", class: "rounded-circle w-16 h-16 img-fluid border border-2 border-white shadow-sm") %>
+            <% end %>
           </div>
         </div>
-      </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% @chatrooms.each do |chatroom| %>
+      <%= link_to api_v1_chatroom_path(chatroom), class: "d-block border-bottom text-decoration-none" do %>
+        <div class="d-flex align-items-center px-4 py-3">
+          <div class="flex-shrink-0">
+            <% if chatroom.other_user(current_user).avatar.attached? %>
+              <%= cl_image_tag chatroom.other_user(current_user).avatar.key, alt: "Avatar of #{chatroom.other_user(current_user).first_name}", class: "rounded-circle img-avatar w-16 h-16 border border-2 border-white shadow-sm" %>
+            <% else %>    
+              <%= image_tag("avatar.svg", alt: "Default avatar", class: "rounded-circle w-16 h-16 img-fluid border border-2 border-white shadow-sm") %>
+            <% end %>
+          </div>
+          <div class="flex-grow-1 ml-4 1h-base">
+            <div class="d-flex justify-content-between">
+              <h2 class="fw-semibold text-charcoal"><%= chatroom.other_user(current_user).full_name %></h2>
+              <span class="text-gray-500"><%= chatroom.messages.last.created_at.strftime("%b %d") %></span>
+            </div>
+            <div>
+              <p class="text-charcoal"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></p>
+              <% last_message = chatroom.messages.last %>
+              <p class=" text-silver">
+                <% if last_message.user == current_user %>
+                  <span>You: </span>
+                <% else %>
+                  <span><%= last_message.user.first_name %>: </span>
+                <% end %>
+                <%= truncate(last_message.content, length: 30) %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

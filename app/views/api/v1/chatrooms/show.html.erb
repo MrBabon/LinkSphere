@@ -2,7 +2,7 @@
   <%= render 'show_header', chatroom: @chatroom %>
 <% end %>
 
-<div class="px-4 pt-32">
+<div class="px-4 pt-32 ">
     <div data-controller="chatroom-subscription"  data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>" data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
         <div class="views-message hide-scrollbar pt-4 flex-1" data-chatroom-subscription-target="messages" >
             <% previous_date = nil %>
@@ -17,9 +17,9 @@
                         <% end %>
                     </div>
                 <% end %>
-                <div class="mb-4 d-flex flex-colomn <%= message.sender?(current_user) ? 'items-end' : 'items-start' %>">
+                <div class="mb-4 d-flex flex-column <%= message.sender?(current_user) ? 'align-items-end' : 'align-items-start' %>">
                     <div class="max-w-[70%] rounded-xl px-4 py-2 <%= message.sender?(current_user) ? 'bg-teal text-light-gray' : 'bg-light-gray' %>" >
-                    <%= render "messages/message", message: message %>
+                    <%= render "api/v1/messages/message", message: message %>
                     </div>
                 </div>
                 <% previous_date = message_date %>

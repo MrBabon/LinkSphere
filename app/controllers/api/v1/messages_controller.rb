@@ -19,7 +19,7 @@ class Api::V1::MessagesController < ApplicationController
             )
             head :ok
         else
-          render "chatrooms/show", status: :unprocessable_entity
+          render "api/v1/chatrooms/show", status: :unprocessable_entity
         end
 
     end

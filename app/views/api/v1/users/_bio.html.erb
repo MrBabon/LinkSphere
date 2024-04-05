@@ -6,8 +6,9 @@
             <h6 class="text-teal"><%= @employee.name %></h6>
         <% end %>
     <% elsif @user.entrepreneurs? %>
-        <%= link_to api_v1_entreprise_path(@entreprise) do %>
+        <%= link_to api_v1_entreprise_path(@entreprise), class: "text-decoration-none lh-1" do %>
             <h6 class="text-teal"><%= @entreprise.name %></h6>
+            <p class="text-silver small">CEO</p>
         <% end %>
     <% end %>
     <p class="text-charcoal fw-light"><%= @user.biography %></p>
