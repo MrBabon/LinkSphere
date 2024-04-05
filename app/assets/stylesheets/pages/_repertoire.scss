@@ -49,3 +49,8 @@
     /* Adjust the vertical alignment as needed */
     vertical-align: middle;
 }
+
+.animation-note {
+    transition: transform 300ms ease-in-out;
+    transform-style: preserve-3d;
+}

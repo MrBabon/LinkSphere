@@ -3,9 +3,10 @@ class Api::V1::UserContactGroupsController < ApplicationController
     def update
         @user_contact_group = UserContactGroup.find(params[:id])
         @user = @user_contact_group.user
+        authorize @user_contact_group
         
         if @user_contact_group.update(user_contact_group_params)
-            redirect_to repertoire_api_v1_user_profile_user_path(@user), notice: 'Note updated successfully.'
+            redirect_to repertoire_user_profil_api_v1_user_path(@user), notice: 'Note updated successfully.'
         else
             render :edit, status: :unprocessable_entity
         end

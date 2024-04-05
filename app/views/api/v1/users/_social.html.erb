@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-evenly align-items-center mt-3">
+    <% if @user.twitter.present? %>
+        <a href="https://<%= @user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter text-charcoal"></i></a>
+    <% end %>
+    <% if @user.linkedin.present? %>
+        <a href="https://<%= @user.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin text-charcoal"></i></a>               
+    <% end %>
+    <% if @user.facebook.present? %>
+        <a href="https://<%= @user.facebook %>" target="_blank"><i class="fa-brands fa-facebook text-charcoal"></i></a>                
+    <% end %>
+    <% if @user.instagram.present? %>
+        <a href="https://<%= @user.instagram %>" target="_blank"><i class="fa-brands fa-instagram text-charcoal"></i></a>   
+    <% end %>
+</div>

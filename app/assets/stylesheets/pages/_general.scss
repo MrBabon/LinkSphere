@@ -61,6 +61,15 @@
 .pb-24 {
     padding-bottom: 6rem/* 96px */;
 }
+
+.pb-28 {
+    padding-bottom: 7rem;
+}
+
+.pb-32 {
+    padding-bottom: 8rem;
+}
+
 .px-4 {
     padding-left: 1rem/* 16px */;
     padding-right: 1rem/* 16px */;
@@ -105,6 +114,10 @@
 
 .mb-12 {
     margin-bottom: 3rem;
+}
+
+.mb-32 {
+    margin-bottom: 8rem;
 }
 
 .mr-1 {
@@ -218,6 +231,10 @@
 
 .h-28 {
     height: 7rem/* 112px */;
+}
+
+.h-vh {
+    height: 50vh;
 }
 
 // WIDTH

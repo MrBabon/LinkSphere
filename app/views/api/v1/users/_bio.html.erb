@@ -1,0 +1,14 @@
+<div class="mx-3 mt-3 pb-32">
+    <h6 class=" text-charcoal fw-semibold"><%= @user.job %></h6>
+    <p class="text-gray fw-light"><%= User.industries[@user.industry] %></p>
+    <% if @user.employee_relationships? %>
+        <%= link_to api_v1_entreprise_path(@employee) do %>
+            <h6 class="text-teal"><%= @employee.name %></h6>
+        <% end %>
+    <% elsif @user.entrepreneurs? %>
+        <%= link_to api_v1_entreprise_path(@entreprise) do %>
+            <h6 class="text-teal"><%= @entreprise.name %></h6>
+        <% end %>
+    <% end %>
+    <p class="text-charcoal fw-light"><%= @user.biography %></p>
+</div>
