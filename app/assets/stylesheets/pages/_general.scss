@@ -27,6 +27,10 @@
     padding-top: 7rem/* 112px */;
 }
 
+.pt-24 {
+    padding-top: 6rem/* 96px */;
+}
+
 .pt-32 {
     padding-top: 8rem/* 128px */;
 }
@@ -468,3 +472,14 @@ input:focus, .form-control:focus {
 .text-message {
     font-size: 16px;
 }
+
+.select-none {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; 
+}
+
+.blur-sm {
+    filter: blur(4px);
+}
+  

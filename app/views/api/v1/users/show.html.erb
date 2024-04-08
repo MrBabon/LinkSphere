@@ -2,7 +2,7 @@
   <%= render 'show_header' %>
 <% end %>
 
-<div class="pt-20"></div>
+<div class="pt-24"></div>
 <div class="d-flex justify-content-center ">
     <% if @user.avatar.attached? %>
         <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-circle img-avatar w-28 h-28 border shadow-sm" %>
@@ -10,30 +10,46 @@
         <%= image_tag("avatar.svg", class: "rounded-circle w-20 h-20 img-fluid border shadow-sm") %>
     <% end %>
 </div>
-<div class="flex justify-center">
-    <div class="block justify-center">
-        <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= @user.full_name %></h2>
-        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
-            <i class="fa-solid fa-phone text-TapCard-blue"></i>
-            <span class=" font-light select-none blur-sm"><%= @user.phone %></span>
+<div class="d-flex justify-content-center">
+    <div class="d-block justify-content-center">
+        <h2 class="font-jost text-silver text-center  my-1"><%= @user.full_name %></h2>
+        <div class="d-flex align-items-center gap-2 small justify-content-center mb-1">
+            <i class="fa-solid fa-phone text-primary"></i>
+            <span class=" fw-light select-none blur-sm">confidential phone</span>
         </div>
-        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
-            <i class="fa-regular fa-envelope text-TapCard-blue"></i>
-            <span class=" font-light select-none blur-sm"><%= @user.email %></span>
+        <div class="d-flex align-items-center gap-2 small justify-content-center mb-1">
+            <i class="fa-regular fa-envelope text-primary"></i>
+            <span class=" fw-light select-none blur-sm">confidential@gmail.com</span>
         </div>
         <% if @user.website.present? %>
-            <div class="flex items-center space-x-2 text-xs justify-center">
-                <i class="fa-solid fa-globe text-TapCard-blue"></i>            
-                <span class=" font-light"><%= @user.website %></span>
+            <div class="d-flex align-items-center gap-2 small justify-content-center">
+                <i class="fa-solid fa-globe text-primary"></i>            
+                <span class=" fw-light"><%= @user.website %></span>
             </div>
         <% end %>
-        <div class="flex justify-start">
+        <div class="d-flex justify-content-evenly align-items-center mt-1">
+            <% if @user.twitter.present? %>
+                <a href="https://<%= @user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter fa-lg text-black"></i></a>
+            <% end %>
+            <% if @user.linkedin.present? %>
+                <a href="https://<%= @user.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin fa-lg text-black"></i></a>               
+            <% end %>
+            <% if @user.facebook.present? %>
+                <a href="https://<%= @user.facebook %>" target="_blank"><i class="fa-brands fa-facebook fa-lg text-black"></i></a>                
+            <% end %>
+            <% if @user.instagram.present? %>
+                <a href="https://<%= @user.instagram %>" target="_blank"><i class="fa-brands fa-instagram fa-lg text-black"></i></a>   
+            <% end %>
+        </div>
+        <div class="d-flex justify-content-center">
             <% everyone_group = current_user.repertoire.contact_groups.find_by(name: 'Everyone') %>
             <% if everyone_group && UserContactGroup.exists?(contact_group: everyone_group, user: @user) %>
-                <p class="px-5 py-2 mb-4 mx-auto text-xs rounded outline outline-2 outline-green-500 text-green-500 font-semibold hover:bg-green-500 hover:text-TapCard-lightGray">Already added</p>
+                <p class="px-3 py-2 my-4 mx-auto text-xs rounded text-light-gray fw-semibold bg-success">Already added</p>
             <% else %>
-                <%= button_to "Add to directory", add_to_directory_api_v1_user_path(@user), method: :post, class: "px-5 py-2 mb-4 mx-auto text-xs rounded outline outline-2 outline-blue-500 text-blue-500 font-semibold hover:bg-blue-500 hover:text-TapCard-lightGray" %>
+                <%= button_to "Add to directory", add_to_directory_api_v1_user_path(@user), method: :post, class: "btn-delete px-3 py-2 my-4 mx-auto text-xs rounded text-light-gray fw-semibold bg-primary" %>
             <% end %>
         </div>
     </div>
 </div>
+<div class="border border-teal mt-3"></div>
+<%= render "bio" %>

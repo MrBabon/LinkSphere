@@ -21,9 +21,7 @@
                     <% end %>
                     <% if @participations[event.id] %>
                         <div class="d-flex flex-column items-start justify-start">
-                            <%= link_to api_v1_event_path(event), class: "text-decoration-none " do %>
-                                <p class="custom-btn-event small custom-btn-green rounded text-success fw-semibold bg-light-gray bg-opacity-50">Registered</p>
-                            <% end %>
+                            <p class="custom-btn-event small custom-btn-green rounded text-success fw-semibold bg-light-gray bg-opacity-50">Registered</p>
                         </div>
                     <% else %>
                         <div data-controller="overlay" class="d-flex flex-column align-items-start justify-content-start">
