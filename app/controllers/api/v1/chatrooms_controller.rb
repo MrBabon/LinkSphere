@@ -1,4 +1,7 @@
 class Api::V1::ChatroomsController < ApplicationController
+    helper_method :find_or_create_chatroom
+
+    
     def show
         @chatroom = Chatroom.find_by(id: params[:id])
         authorize @chatroom

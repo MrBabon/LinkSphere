@@ -1,4 +1,7 @@
 class Event < ApplicationRecord
+    attr_accessor :is_past
+
+
     has_one_attached :logo
 
     belongs_to :entreprise

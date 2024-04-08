@@ -21,13 +21,15 @@
                     <% end %>
                     <% if @participations[event.id] %>
                         <div class="d-flex flex-column items-start justify-start">
-                            <%= link_to "Registered", api_v1_event_path(event), class: "text-decoration-none custom-btn-event small custom-btn-green  rounded-2 text-success fw-semibold bg-light-gray bg-opacity-50" %>
+                            <%= link_to api_v1_event_path(event), class: "text-decoration-none " do %>
+                                <p class="custom-btn-event small custom-btn-green rounded text-success fw-semibold bg-light-gray bg-opacity-50">Registered</p>
+                            <% end %>
                         </div>
                     <% else %>
                         <div data-controller="overlay" class="d-flex flex-column align-items-start justify-content-start">
                             <button data-action="click->overlay#toggle" class="btn-delete px-2 custom-btn-blue small rounded text-primary fw-semibold bg-light-gray bg-opacity-50">Register</button>
                             <div data-overlay-target="overlay" class="d-none inset-x-0 position-fixed top-0 w-100 h-100 overlay justify-content-center align-items-center text-white z-3">
-                                <div data-overlay-target="modal" class="d-none mx-2 position-relative w-72 h-auto bg-charcoal text-light-gray py-4 px-3 rounded-xl content-between ">
+                                <div data-overlay-target="modal" class="d-none mx-2 position-relative w-72 h-auto bg-charcoal text-light-gray py-4 px-3 rounded-xl content-between">
                                     <button data-action="click->overlay#closeModal" class="d-flex justify-content-start position-absolute top-0 end-0 mt-3 mr-3 btn-delete">
                                         <i class="fa-solid fa-xmark text-yellow fa-xmark-custom"></i>
                                     </button>

@@ -13,3 +13,15 @@
 .hide-scrollbar::-webkit-scrollbar{
     display: none;
 }
+
+.date-message {
+    position: absolute;
+    right: 0; /* Ajuster en fonction de la taille souhaitée */
+    top: 0; /* Centrer verticalement par rapport au conteneur */
+    padding-right: 0.75em; /* Ajuster en fonction de la taille souhaitée */
+    padding-left: 2.7em;
+    padding-top: 0.75em;
+    padding-bottom: 0.25em;
+    border-radius: 0 0 0 2em; /* Arrondir les coins à gauche */
+    font-size: 12px; /* Votre taille de texte */
+}

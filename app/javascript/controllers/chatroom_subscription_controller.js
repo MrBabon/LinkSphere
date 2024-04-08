@@ -46,6 +46,6 @@ export default class extends Controller {
   }
   
   userStyleClass(currentUserIsSender) {
-    return currentUserIsSender ? "bg-teal text-light-gray" : "bg-light-gray"
+    return currentUserIsSender ? "bg-primary text-light-gray" : "bg-light-gray"
   }
 }

@@ -18,12 +18,12 @@
 <ul class="w-100 px-0">
   <% @users.group_by { |user| user.created_at.beginning_of_month }.sort.each do |month, users| %>
   <div class="month-section">
-    <p class="bg-light-gray px-4 py-1 shadow-sm fw-light"><%= month.strftime("%B %Y") %></p>
+    <p class="bg-light-gray px-4 py-1 shadow-sm fw-light my-0"><%= month.strftime("%B %Y") %></p>
 
   </div>
     <% users.sort_by(&:first_name).each do |user| %>
       <%= link_to repertoire_user_profil_api_v1_user_path(user), class: "text-decoration-none" do %>
-        <li class="d-flex justify-content-between align-items-center text-charcoal px-4 border-bottom">
+        <li class="d-flex justify-content-between align-items-center text-charcoal px-4 pb-1 pt-3 border-bottom">
           <p><%= user.full_name %></p>
           <% if user.avatar.attached? %>
             <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-circle mb-3 img-avatar w-12 h-12 border border-2 border-white shadow-sm" %>

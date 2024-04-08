@@ -95,12 +95,17 @@ class Api::V1::UsersController < ApplicationController
   def my_events
     @user = current_user
     authorize @user
-    @participating_events = @user.events.where('end_time > ?', Time.zone.today - 1.day).order(start_time: :asc)
-    @participating_events_by_month = @participating_events.group_by { |event| event.start_time.beginning_of_month }
+
+    # Application des filtres de recherche
+    @participating_events = @user.events
     @participating_events = @participating_events.search_by_city(params[:city]) if params[:city].present?
     @participating_events = @participating_events.search_by_country(params[:country]) if params[:country].present?
     @participating_events = @participating_events.search_by_title(params[:title]) if params[:title].present?
     @participating_events = @participating_events.search_by_region(params[:region]) if params[:region].present?
+    @participating_events = @participating_events.sort_by { |e| [e.end_time < Time.zone.now ? 1 : 0, e.start_time] }
+
+    @participating_events_by_month = @participating_events.group_by { |event| event.start_time.beginning_of_month }
+
     @visible_in_participants = {}
 
     # Boucle à travers les événements auxquels l'utilisateur participe pour obtenir la visibilité

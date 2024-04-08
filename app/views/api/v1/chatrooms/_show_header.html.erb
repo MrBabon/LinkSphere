@@ -21,9 +21,9 @@
         <% else %>    
             <%= image_tag("avatar.svg", class: "rounded-circle w-12 h-12 img-fluid mb-2 shadow-sm") %>
         <% end %>
-        <div class="lh-1">
-            <h6 class=" text-charcoal"><%= chatroom.other_user(current_user).full_name %></h6>
-            <p class="text-silver"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></p>
-        </div>
+        <p class="lh-sm d-flex flex-column text-charcoal">
+            <%= truncate(chatroom.other_user(current_user).full_name, length: 24) %>
+            <span class="text-silver"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></span>
+        </p>
     </div>
 </header>

@@ -17,51 +17,36 @@
 <% end %>
 
 <div class="w-100">
-  <% if params[:search].present? %>
     <% @users.each do |user| %>
-      <%= link_to api_v1_chatroom_path(user), class: "d-block border-bottom text-decoration-none" do %>
-        <div class="d-flex align-items-center px-4 py-3">
-          <div class="flex-shrink-0">
-            <% if user.avatar.attached? %>
-              <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-circle img-avatar w-16 h-16 border border-2 border-white shadow-sm" %>
-            <% else %>
-              <%= image_tag("avatar.svg", alt: "Default avatar", class: "rounded-circle w-16 h-16 img-fluid border border-2 border-white shadow-sm") %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-  <% else %>
-    <% @chatrooms.each do |chatroom| %>
-      <%= link_to api_v1_chatroom_path(chatroom), class: "d-block border-bottom text-decoration-none" do %>
-        <div class="d-flex align-items-center px-4 py-3">
-          <div class="flex-shrink-0">
-            <% if chatroom.other_user(current_user).avatar.attached? %>
-              <%= cl_image_tag chatroom.other_user(current_user).avatar.key, alt: "Avatar of #{chatroom.other_user(current_user).first_name}", class: "rounded-circle img-avatar w-16 h-16 border border-2 border-white shadow-sm" %>
-            <% else %>    
-              <%= image_tag("avatar.svg", alt: "Default avatar", class: "rounded-circle w-16 h-16 img-fluid border border-2 border-white shadow-sm") %>
-            <% end %>
-          </div>
-          <div class="flex-grow-1 ml-4 1h-base">
-            <div class="d-flex justify-content-between">
-              <h2 class="fw-semibold text-charcoal"><%= chatroom.other_user(current_user).full_name %></h2>
-              <span class="text-gray-500"><%= chatroom.messages.last.created_at.strftime("%b %d") %></span>
+      <% chatroom = find_or_create_chatroom(current_user, user) %>
+      <div class="position-relative">
+        <%= link_to api_v1_chatroom_path(chatroom), class: "d-block  text-decoration-none" do %>
+          <div class="d-flex align-items-start px-2 py-2 pb-3 gap-2">
+            <div class="flex-shrink-0">
+              <% if user.avatar.attached? %>
+                <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-circle img-avatar w-16 h-16  shadow-sm" %>
+              <% else %>
+                <%= image_tag("avatar.svg", alt: "Default avatar", class: "rounded-circle w-16 h-16 img-fluid shadow-sm") %>
+              <% end %>
             </div>
-            <div>
-              <p class="text-charcoal"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></p>
+            <div class="d-flex flex-column lh-base">
               <% last_message = chatroom.messages.last %>
-              <p class=" text-silver">
-                <% if last_message.user == current_user %>
-                  <span>You: </span>
-                <% else %>
-                  <span><%= last_message.user.first_name %>: </span>
-                <% end %>
-                <%= truncate(last_message.content, length: 30) %>
+              <p class="fw-semibold text-charcoal d-flex flex-column lh-sm">
+                <span class=""><%= truncate(user.full_name, length: 24) %></span>
+                <span class="fw-light small"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></span>
+                <span class="small text-silver fw-light mt-1">
+                  <% if last_message.user == current_user %>
+                    <span>You: </span>
+                  <% else %>
+                    <span><%= last_message.user.first_name %>: </span>
+                  <% end %>
+                  <%= truncate(last_message.content, length: 30) %>
+                </span>
               </p>
             </div>
           </div>
-        </div>
-      <% end %>
+          <p class="text-gray date-message"><%= chatroom.messages.last.created_at.strftime("%b %d") %></p>
+        <% end %>
+      </div>
     <% end %>
-  <% end %>
 </div>
