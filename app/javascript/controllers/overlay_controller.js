@@ -18,6 +18,8 @@ export default class extends Controller {
     this.modalTarget.classList.add("d-none");
   }
 
+
+
   closeOnCodeInput() {
     // Ajoutez ici la logique pour valider le code d'inscription
     // et fermer l'overlay si le code est correct.

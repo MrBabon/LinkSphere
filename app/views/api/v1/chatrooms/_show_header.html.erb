@@ -1,4 +1,4 @@
-<header class="w-100 position-fixed bg-charcoal flex-shrink-0">
+<header class="w-100 position-fixed bg-charcoal flex-shrink-0 z-2">
     <div class="d-flex w-100 justify-content-between align-items-center pt-8 pb-4 px-4  bg-charcoal">
         <%= link_to api_v1_chatrooms_path(current_user) do %>
                 <%= image_tag "chevron-left.svg", alt: "chevron", class: "icon w-6 align-middle" %>
@@ -6,13 +6,28 @@
         <div class="flex-1 text-center ">
             <h6 class="m-0 align-middle text-light-gray text-uppercase fw-semibold font-jost">Chats</h6>
         </div>
-        <%= form_with(url: api_v1_blocks_path, method: :post) do %>
-            <%= hidden_field_tag :blocked_id, @other_user.id %>
-            <%= hidden_field_tag :chatroom_id, @chatroom.id %>
-            <%= button_tag(type: 'submit', data: { confirm: "Are you sure?" }, class: "btn-delete") do %>
-                <%= image_tag "trash-fill.svg", alt: "poubelle", class: "w-5 icon align-middle" %>
-            <% end %>
-        <% end %>
+        <div data-controller="overlay" class="">
+            <button class="btn-delete" data-action="click->overlay#toggle" ><%= image_tag "trash-fill.svg", alt: "trash fill", class: "w-5 icon align-middle" %></button>
+            <div data-overlay-target="overlay" class="inset-x-0 overlay d-none position-fixed top-0 w-100 h-100 justify-content-center align-items-center text-white z-3">
+                <div data-overlay-target="modal" class="d-none mx-2 position-relative h-auto bg-charcoal justify-content-center p-4 text-center rounded-xl content-between">
+                        <p>Delete this conversation</p>
+                    <div class="d-flex justify-content-around align-items-center gap-2">
+                        <p class="bg-yellow px-2 rounded small text-charcoal m-0">Delete</p>
+                        <%= form_with(url: api_v1_blocks_path, method: :post) do %>
+                            <%= hidden_field_tag :blocked_id, @other_user.id %>
+                            <%= hidden_field_tag :chatroom_id, @chatroom.id %>
+                            <%= button_tag(type: 'submit', data: { confirm: "Are you sure?" }, class: "btn-delete bg-primary text-charcoal px-2 rounded small mb-1") do %>
+                                Delete & Block
+                            <% end %>
+                        <% end %>
+                        <button data-action="click->overlay#closeModal" class=" btn-delete text-charcoal bg-light-gray px-2 rounded small m-0">
+                        Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
     </div>
     <div class="d-flex align-items-center gap-4 px-8 pb-2 pt-3 bg-white w-100">
