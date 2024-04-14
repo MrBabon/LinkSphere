@@ -12,7 +12,11 @@
                 <div data-overlay-target="modal" class="d-none mx-2 position-relative h-auto bg-charcoal justify-content-center p-4 text-center rounded-xl content-between">
                         <p>Delete this conversation</p>
                     <div class="d-flex justify-content-around align-items-center gap-2">
-                        <p class="bg-yellow px-2 rounded small text-charcoal m-0">Delete</p>
+                        <%= form_with(url: api_v1_chatroom_path(@chatroom), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are your sure?" }) do %>
+                            <%= button_tag(type: 'submit', class: "btn-delete bg-yellow px-2 rounded small text-charcoal mb-1") do %>
+                                Delete
+                            <% end %>
+                        <% end %>
                         <%= form_with(url: api_v1_blocks_path, method: :post) do %>
                             <%= hidden_field_tag :blocked_id, @other_user.id %>
                             <%= hidden_field_tag :chatroom_id, @chatroom.id %>
@@ -21,7 +25,7 @@
                             <% end %>
                         <% end %>
                         <button data-action="click->overlay#closeModal" class=" btn-delete text-charcoal bg-light-gray px-2 rounded small m-0">
-                        Cancel
+                            Cancel
                         </button>
                     </div>
                 </div>

@@ -23,13 +23,13 @@
         <% end %>
         <% if @contact_group.deletable == true %>
             <%= form_with(url: api_v1_contact_group_path(@contact_group), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are your sure?" }) do %>
-            <%= button_tag(type: 'submit', class: "btn-delete") do %>
-                <%= image_tag "trash-fill.svg", alt: "poubelle", class: "w-5 icon align-middle" %>
-            <% end %>
+                <%= button_tag(type: 'submit', class: "btn-delete") do %>
+                    <%= image_tag "trash-fill.svg", alt: "poubelle", class: "w-5 icon align-middle" %>
+                <% end %>
             <% end %>
         <% else %>
             <%= link_to api_v1_chatrooms_path(current_user) do %>
-            <%= image_tag "envelope.svg", alt: "envelope", class: "w-7 icon align-middle" %>
+                <%= image_tag "envelope.svg", alt: "envelope", class: "w-7 icon align-middle" %>
             <% end %>
         <% end %>
     </div>

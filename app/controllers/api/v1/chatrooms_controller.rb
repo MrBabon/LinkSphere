@@ -43,6 +43,7 @@ class Api::V1::ChatroomsController < ApplicationController
             @chatroom,
             { action: "chatroom_deleted" }
         )
+        authorize @chatroom, :destroy?
         redirect_to api_v1_chatrooms_path(current_user), notice: 'The group has been successfully deleted.'
     end
 

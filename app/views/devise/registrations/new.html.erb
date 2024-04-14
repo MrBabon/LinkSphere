@@ -37,7 +37,7 @@
           <%= f.label :phone, 'Phone Number', class: "form-label fw-semibold" %>
           <%= f.input :phone,
                       required: true,
-                      input_html: { autocomplete: "phone", placeholder: "+33 6 00 00 00 00", class: "form-control custom-placeholder rounded w-100 py-2 px-4 bg-light-gray border border-0" },
+                      input_html: { autocomplete: "phone", placeholder: "+33 6 00 00 00 00", type: "tel", class: "form-control custom-placeholder rounded w-100 py-2 px-4 bg-light-gray border border-0" },
                       label: "Phone Number",
                       label_html: { class: "d-none" } %>
         </div>
